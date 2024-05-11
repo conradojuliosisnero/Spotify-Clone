@@ -4,14 +4,14 @@ import "./globals.css";
 import NavBar from "@/components/SideNavBar/NavBar";
 import TopBar from "@/components/Topbar/TopBar";
 import Footer from "@/components/Footer/Footer";
-import ContextTracks from "@/context/ContextTracks";
+import Providers from "@/features/provider/Providers";
 
-// const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <ContextTracks>
+      <Providers>
         <body>
           <TopBar />
           <NavBar />
@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
             </section>
           </div>
         </body>
-      </ContextTracks>
+      </Providers>
     </html>
   );
 }

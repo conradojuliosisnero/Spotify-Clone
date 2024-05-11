@@ -4,37 +4,43 @@ import search from "../../../public/assets/search.svg";
 import close from "../../../public/assets/close.svg";
 import getSearchTracks from "@/services/SearchTracks/searchTracks";
 import { useState } from "react";
-import { useContext } from "react";
-import { TrackContext } from "@/context/tracksContext";
+import { useDispatch } from "react-redux";
+import { setSongs } from "@/features/songSlice";
 
 export default function Search() {
-  const [valueSearch, setValueSearch] = useState("");
-  const [isSearching, setIsSearching] = useState(false); // Nuevo estado para controlar si el usuario está buscando
+  const [searchValue, setSearchValue] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { setTracks } = useContext(TrackContext);
 
-  // Función para realizar la búsqueda
-  async function searchTracks() {
-    if (!valueSearch.trim()) return; // Evita buscar si el campo está vacío
-    try {
-      const data = await getSearchTracks(setTracks, valueSearch);
-    } catch (error) {
-      console.error("Error fetching tracks:", error);
+  const dispathc = useDispatch()
+  dispathc(setSongs(searchResults))
+
+  console.log(searchResults);
+
+
+  async function handleSearchClick() {
+    if (searchValue.trim() === "") {
+      setSearchValue(searchValue)
+      setSearchResults([]);
+      return;
     }
+
+    setIsLoading(true);
+    try {
+      const results = await getSearchTracks(setSearchResults, searchValue);
+    } catch (error) {
+      console.error("Error al buscar:", error);
+    }
+    setIsLoading(false);
   }
 
-  function handlerSearch(e) {
-    setValueSearch(e.target.value);
+  function handleSearchInputChange(e) {
+    setSearchValue(e.target.value);
   }
 
   function clearSearch() {
-    setValueSearch("");
-  }
-
-  // Ejecuta la búsqueda cuando se hace clic en el botón de búsqueda
-  function handleSearchClick() {
-    setIsSearching(true);
-    searchTracks();
+    setSearchValue("");
   }
 
   return (
@@ -46,11 +52,11 @@ export default function Search() {
         <input
           className="input"
           type="text"
-          value={valueSearch}
-          onChange={handlerSearch}
+          value={searchValue}
+          onChange={handleSearchInputChange}
         />
         <div className="icon-search">
-          {valueSearch ? (
+          {searchValue && (
             <Image
               src={close}
               width={20}
@@ -58,14 +64,11 @@ export default function Search() {
               alt="search icon"
               onClick={clearSearch}
             ></Image>
-          ) : (
-            <></>
           )}
         </div>
       </div>
-      {/* Botón de búsqueda */}
-      <button onClick={handleSearchClick} disabled={!valueSearch.trim()}>
-        Buscar
+      <button onClick={handleSearchClick} disabled={isLoading}>
+        {isLoading ? "Buscando..." : "Buscar"}
       </button>
     </div>
   );
