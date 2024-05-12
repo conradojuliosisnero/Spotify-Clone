@@ -1,12 +1,5 @@
-"use client";
-import Container from "@/components/Contained/Container";
-import { Provider } from "react-redux";
-import { store } from "@/store/store";
+import Container from "@/components/Search/Contained/Container";
 
 export default function page() {
-  return (
-    <main className="main-content">
-      <Container name={"Busqueda"} />
-    </main>
-  );
+  return <Container name={"Busqueda"} />;
 }

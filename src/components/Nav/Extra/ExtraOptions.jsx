@@ -1,7 +1,7 @@
-
-import "@/app/styles.css";
-import add from "../../../public/assets/add.svg";
-import heart from "../../../public/assets/heart.svg";
+"use client"
+import "@/app/styles/styles.css";
+import add from "../../../../public/assets/add.svg";
+import heart from "../../../../public/assets/heart.svg";
 import Image from "next/image";
 
 export default function ExtraOptions() {

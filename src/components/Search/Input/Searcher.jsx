@@ -1,27 +1,24 @@
-import "./search.css";
+"use client";
+import "../styles.css";
 import Image from "next/image";
-import search from "../../../public/assets/search.svg";
-import close from "../../../public/assets/close.svg";
+import search from "../../../../public/assets/search.svg";
+import close from "../../../../public/assets/close.svg";
 import getSearchTracks from "@/services/SearchTracks/searchTracks";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSongs } from "@/features/songSlice";
+import { setSearch } from "@/features/songSlice";
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-
-  const dispathc = useDispatch()
-  dispathc(setSongs(searchResults))
-
-  console.log(searchResults);
-
+  const dispathc = useDispatch();
+  dispathc(setSearch(searchResults));
 
   async function handleSearchClick() {
     if (searchValue.trim() === "") {
-      setSearchValue(searchValue)
+      setSearchValue(searchValue);
       setSearchResults([]);
       return;
     }
@@ -67,7 +64,11 @@ export default function Search() {
           )}
         </div>
       </div>
-      <button onClick={handleSearchClick} disabled={isLoading}>
+      <button
+        className="button__search"
+        onClick={handleSearchClick}
+        disabled={isLoading}
+      >
         {isLoading ? "Buscando..." : "Buscar"}
       </button>
     </div>

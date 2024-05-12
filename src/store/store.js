@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import songTracks from "@/features/songSlice";
+import searcher from "@/features/songSlice"; 
 
 export const store = configureStore({
   reducer: {
-    songTracks,
+    searcher,
   },
 });

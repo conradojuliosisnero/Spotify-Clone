@@ -40,16 +40,19 @@ body {
 
 .container-arrows {
 	display: flex;
+	justify-content: center;
+	align-items: center;
 	padding: 10px 0px;
 	gap: 3rem;
 }
 
 .container-arrow-left,
 .container-arrow-right {
-	background-color: #0a0a0a;
+	background-color: #5e5e5e;
 	width: 3rem;
 	height: 3rem;
 	border-radius: 50%;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;

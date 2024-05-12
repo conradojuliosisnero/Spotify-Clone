@@ -1,0 +1,99 @@
+.card-concentracion,
+.card-spotify-playlists {
+	background-color: #181818;
+	border-radius: 0.5rem;
+	padding: 1.6rem;
+	box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
+	transition: background-color 0.3s ease;
+	cursor: pointer;
+	position: relative;
+}
+
+.card-concentracion:hover,
+.card-spotify-playlists:hover {
+	background-color: #282828;
+}
+
+.card-img img {
+	width: 100%;
+	border-radius: 0.5rem;
+}
+
+.card-img {
+	overflow: hidden;
+}
+
+.card h2 {
+	margin-top: 1.5rem;
+	margin-bottom: 1rem;
+	font-size: 1.6rem;
+	color: #fff;
+	font-weight: 600;
+}
+
+.card p {
+	font-size: 1.3rem;
+	color: #b3b3b3;
+	font-weight: 400;
+	line-height: 1.5;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.search-container{
+    display: flex;
+    padding: 0px 0px 0px 40px;
+    width: 100%;
+    height: auto;
+}
+
+.icon-search{
+    display: flex;
+    padding: 0px 5px;
+}
+
+.input-search{
+    display: flex;
+    border-radius: 7em;
+    border: none;
+    outline: none;
+    background: rgb(53, 53, 53);
+    padding: 10px 10px;
+    transition: background 200ms ease;
+}
+
+.input-search:hover{
+    background: rgb(78, 78, 78);
+    outline: solid 1px rgb(169, 168, 168);
+}
+
+.input{
+    border: none;
+    outline: none;
+    width: 140px;
+    background-color: transparent;
+}
+
+.button__search{
+    margin-left: 10px;
+    display: flex;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10em;
+    background-color: transparent;
+    color: #ffffff;
+    font-weight: 600;
+    border: solid 2px #ffffff;
+    outline: none;
+    transition: background-color 200ms ease;
+    cursor: pointer;
+}
+
+.button__search:hover{
+    background-color: #ffffff;
+    color: #333333;
+}

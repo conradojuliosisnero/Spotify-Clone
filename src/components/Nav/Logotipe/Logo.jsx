@@ -1,5 +1,5 @@
 
-import "@/app/styles.css";
+import "@/app/styles/styles.css";
 
 export default function Logo() {
   return (

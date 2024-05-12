@@ -1,8 +1,8 @@
 "use client";
-import "@/app/styles.css";
-import Button from "../UserButtons/Button";
-import Arrow from "../ArrowsTopBar/Arrow";
-import Search from "../Search/Search";
+import "@/app/styles/styles.css";
+import Button from "./UserButtons/Button";
+import Arrow from "./ArrowsTopBar/Arrow";
+import Search from "../Search/Input/Searcher";
 import { usePathname } from "next/navigation";
 
 export default function TopBar() {

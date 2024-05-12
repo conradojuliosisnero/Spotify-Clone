@@ -1,10 +1,9 @@
-"use client";
 import "./navbar.css";
+import "@/app/styles/styles.css";
 import Logo from "../Logotipe/Logo";
-import Nav from "../Nav/Nav";
+import Nav from "../Nav";
 import ExtraOptions from "../Extra/ExtraOptions";
 import ContaineerLinks from "../ContainerLinks/ContaineerLinks";
-import '@/app/styles.css'
 
 export default function NavBar() {
   return (

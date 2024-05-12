@@ -14,7 +14,7 @@ const menuItems = [
     text: "Buscar",
   },
   {
-    href: "#",
+    href: "/library",
     iconSrc: favorite,
     text: "Tu biblioteca",
   },
