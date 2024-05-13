@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 export default function MusicCard() {
   const search = useSelector((state) => state.searcher);
 
+  const [buttonHover, setButtonHover] = useState(false);
+
   useEffect(() => {
     function handlerButton() {
       setButtonHover(true);
