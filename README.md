@@ -33,4 +33,4 @@ Este proyecto es un clon de Spotify que estoy desarrollando para poner en práct
 
 ---
 
-¡Gracias por visitar este proyecto! Espero que te diviertas explorándolo tanto como yo disfruto construyéndolo. Si tienes alguna pregunta o simplemente quieres charlar sobre música, no dudes en ponerte en contacto conmigo. 😊🎧
+¡Gracias por visitar este proyecto! Espero que te diviertas explorándolo tanto como yo disfruto construyéndolo. Si tienes alguna pregunta o simplemente quieres charlar, no dudes en ponerte en contacto conmigo. 😊🎧

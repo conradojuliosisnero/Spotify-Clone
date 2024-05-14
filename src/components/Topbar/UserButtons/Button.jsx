@@ -1,14 +1,15 @@
 import "@/app/styles/styles.css";
+import Link from "next/link";
 
 export default function Button() {
   return (
     <div class="buttons-user">
-      <a href="#" class="btn-register">
+      <Link href="/auth/login" class="btn-register">
         Registrarte
-      </a>
-      <a href="#" class="btn-login btn-full">
+      </Link>
+      <Link href="/auth/register" class="btn-login btn-full">
         Iniciar sesión
-      </a>
+      </Link>
     </div>
   );
 }

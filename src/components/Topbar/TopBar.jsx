@@ -13,6 +13,7 @@ export default function TopBar() {
       {/* flechas  */}
       <Arrow />
       {route == "/search" ? <Search /> : ""}
+      {/* <Button /> */}
     </div>
   );
 }
