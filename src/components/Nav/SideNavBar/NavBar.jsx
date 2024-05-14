@@ -1,7 +1,7 @@
 import "./navbar.css";
 import "@/app/styles/styles.css";
 import Nav from "../Nav";
-import LibrarySideBar from "./library/librarySideBar";
+import dynamic from "next/dynamic";
 
 export default function NavBar() {
   return (
@@ -9,7 +9,12 @@ export default function NavBar() {
       {/* options nav */}
       <Nav />
       {/* library  */}
-      <LibrarySideBar />
+      <NoSSRLibrarySideBar />
     </nav>
   );
 }
+
+const NoSSRLibrarySideBar = dynamic(
+  () => import("./library/librarySideBar"),
+  { ssr: false }
+);
