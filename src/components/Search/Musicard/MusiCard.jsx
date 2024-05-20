@@ -9,16 +9,13 @@ export default function MusicCard() {
 
   const search = useSelector((state) => state.searcher);
 
-  console.log(search);
-
   useEffect(() => {
     function handlerButton() {
       setButtonHover(true);
-      console.log("el mouse entro");
     }
 
     function handlerButtonDisHover() {
-      console.log("el mouse salio");
+      setButtonHover(false);
     }
 
     const card = document.querySelector(".contend-card");

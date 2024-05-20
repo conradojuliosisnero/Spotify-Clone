@@ -1,4 +1,4 @@
-import "@/app/styles/styles.css";
+import "@/styles/styles.css";
 import MusicCard from "../Musicard/Musicard";
 
 export default function Container() {

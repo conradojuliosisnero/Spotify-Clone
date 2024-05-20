@@ -1,4 +1,4 @@
-import "@/app/styles/styles.css";
+import "@/styles/styles.css";
 import MusicCard from "../CardSearch/Card";
 
 export default function Container({ name }) {

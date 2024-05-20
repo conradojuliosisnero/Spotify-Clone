@@ -23,17 +23,18 @@ body {
 /*               TOPBAR               */
 /* ********************************** */
 .topbar {
+  width: calc(100% - 30rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: transparent;
+  background-color: #141414c8;
+  backdrop-filter: blur(7px);
 
   position: fixed;
   z-index: 30;
-  top: 0;
   right: 0;
-  width: calc(100% - 30rem);
+  top: 0;
 }
 
 .container-arrows {
@@ -47,13 +48,16 @@ body {
 .container-arrow-left,
 .container-arrow-right {
   background-color: #5e5e5e;
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
+  border: none;
+  outline: none;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .container-arrow-left i,
@@ -162,6 +166,18 @@ body {
   font-size: 2rem;
 }
 
+.btn-create-list{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1.5em;
+}
+
 /* *****************************************************
 ////////////////////// LIBRARY SIDE BAR ////////////////
 ***************************************************** */
@@ -171,12 +187,25 @@ body {
   padding: 1rem 2.4rem;
   background-color: #121212;
   flex-direction: column;
-  gap: 3rem;
+  /* gap: 3rem; */
   border-radius: .7em;
+}
+
+.wrapper__library{
+  display: flex;
+  justify-content: start;
+}
+
+.icon-nav{
+  margin-right:.2em;
 }
 
 .nav-library div {
   list-style: none;
+}
+
+.wrapper__link{
+  margin-left: 1.2em;
 }
 
 .nav-library div a {

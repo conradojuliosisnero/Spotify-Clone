@@ -1,0 +1,22 @@
+.wrapper__playlist {
+  display: flex;
+  overflow: hidden;
+  height: 250px;
+  overflow-y: scroll;
+  width: 100%;
+  padding: 1em 1.5em;
+}
+
+.container__playlist {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  flex: 1;
+  justify-content: start;
+  align-items: start;
+}
+
+.playlist__card{
+    margin: 1em 0em;
+    background-color: bisque;
+}

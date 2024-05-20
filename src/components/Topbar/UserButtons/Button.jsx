@@ -1,4 +1,4 @@
-import "@/app/styles/styles.css";
+import "@/styles/styles.css";
 import Link from "next/link";
 
 export default function Button() {

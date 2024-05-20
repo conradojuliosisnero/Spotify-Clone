@@ -1,5 +1,5 @@
 "use client";
-import "@/app/styles/styles.css";
+import "@/styles/styles.css";
 import Button from "./UserButtons/Button";
 import Arrow from "./ArrowsTopBar/Arrow";
 import Search from "../Search/Input/Searcher";

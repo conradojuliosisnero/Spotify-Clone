@@ -1,4 +1,4 @@
-import "@/app/styles/styles.css";
+import "@/styles/styles.css";
 import Link from "next/link";
 import Image from "next/image";
 import menuItems from "@/data/dataMenu";

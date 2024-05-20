@@ -1,4 +1,4 @@
-import "@/app/styles/styles.css";
+import "@/styles/styles.css";
 import CardLibrary from "../Card/CardLibrary";
 
 export default function Container({ name }) {

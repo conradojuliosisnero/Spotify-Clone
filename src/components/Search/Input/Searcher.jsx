@@ -3,7 +3,7 @@ import "../styles.css";
 import Image from "next/image";
 import search from "../../../../public/assets/search.svg";
 import close from "../../../../public/assets/close.svg";
-import getSearchTracks from "@/services/SearchTracks/searchTracks";
+// import getSearchTracks from "@/services/Spotify/searchTracks";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSearch } from "@/features/search/songSlice";
