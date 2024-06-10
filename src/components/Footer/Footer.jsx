@@ -7,10 +7,10 @@ export default function Footer() {
       <div className="container-links-footer">
         {footerLinks?.map((link, index) => (
           <div className="links-footer" key={index}>
-            <h3>Empresa</h3>
-            <Link href="#">Acerca de</Link>
-            <Link href="#">Empleo</Link>
-            <Link href="#">For the Record</Link>
+            <h3>{link.title}</h3>
+            {link.links.map((link) => (
+              <Link href={link.url}>{link.text}</Link>
+            ))}
           </div>
         ))}
       </div>
