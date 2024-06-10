@@ -1,5 +1,12 @@
-import Container from "./Contained/Contained";
+import Container from "@/components/Contained/Contained";
+import MusicCard from "./CardSearch/Card";
 
 export default function Home() {
-  return <Container />;
+  return (
+    <Container name="Home">
+      <MusicCard />
+      <MusicCard />
+      <MusicCard />
+    </Container>
+  );
 }

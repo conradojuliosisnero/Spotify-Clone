@@ -1,5 +1,5 @@
-import Container from "@/components/Search/Contained/Container";
+import Search from "@/components/Search/Index";
 
 export default function page() {
-  return <Container name={"Busqueda"} />;
+  return <Search/>
 }
