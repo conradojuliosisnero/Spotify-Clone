@@ -7,8 +7,8 @@ import Footer from "@/components/Footer/Footer";
 import Providers from "@/features/provider/Providers";
 
 const rubik = Rubik({
-  weight: ['400','500','600'],
-  subsets: ["latin"]
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
 });
 
 export default function RootLayout({ children }) {
