@@ -7,8 +7,6 @@ export default function NavBar() {
     <nav class="navbar">
       {/* options nav */}
       <Nav />
-      {/* library  */}
-    
     </nav>
   );
 }
