@@ -8,8 +8,10 @@ export default function Footer() {
         {footerLinks?.map((link, index) => (
           <div className="links-footer" key={index}>
             <h3>{link.title}</h3>
-            {link.links.map((link) => (
-              <Link href={link.url}>{link.text}</Link>
+            {link.links.map((link, index) => (
+              <Link href={link.url} key={`${index}-${link.text}`}>
+                {link.text}
+              </Link>
             ))}
           </div>
         ))}
