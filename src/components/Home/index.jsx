@@ -2,16 +2,37 @@ import Container from "@/components/Contained/Contained";
 import MusicCard from "./CardSearch/Card";
 import getSongs from "@/services/Spotify/songs";
 
-export default async function Home() {
-  const {tracks} = await getSongs();
+export async function getServerSideProps() {
+  const data = await getSongs();
 
-  console.log(tracks[0].album)
+  if (!data || !data.tracks) {
+    return {
+      props: {
+        canciones: null,
+      },
+    };
+  }
+
+  return {
+    props: {
+      canciones: data.tracks,
+    },
+  };
+}
+
+const Home = ({ canciones }) => {
+
+  if (!canciones) {
+    return <div>No songs available</div>;
+  }
 
   return (
     <Container name="Home">
-      {SONGS?.tracks?.map((track, index) => (
+      {canciones.map((track, index) => (
         <MusicCard track={track} key={index} />
       ))}
     </Container>
   );
-}
+};
+
+export default Home;
