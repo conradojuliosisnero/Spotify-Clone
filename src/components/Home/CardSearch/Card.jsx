@@ -31,10 +31,10 @@ export default function MusicCard({tracks}) {
     <div className="contend-card">
       <div className="card">
         <div className="card-img">
-          {/* <Image src={""} alt="name" width={100} height={100} /> */}
+          <Image src={""} alt="name" width={100} height={100} />
         </div>
         <h2>{tracks?.name}</h2>
-        <p>artist</p>
+        <p>{tracks?.artists}</p>
       </div>
     </div>
   );

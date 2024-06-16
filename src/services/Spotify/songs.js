@@ -1,6 +1,6 @@
 import { spotifyUrls } from "./urls";
 
-async function getSongs() {
+export default async function getSongs() {
   const options = {
     method: "GET",
     headers: {
@@ -11,9 +11,9 @@ async function getSongs() {
   try {
     const response = await fetch(spotifyUrls.spotify.songs, options);
     if (response.ok) {
-      const result = await response.json();
-      // console.log(result);
-      return result
+      const { tracks } = await response.json();
+      // console.log(tracks);
+      return tracks;
     } else {
       console.log(`ups... algo salio mal en la llamada`);
     }
@@ -22,4 +22,3 @@ async function getSongs() {
   }
 }
 
-export default getSongs;
