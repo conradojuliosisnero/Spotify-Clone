@@ -2,10 +2,8 @@
 import "../styles.css";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 
-export default function MusicCard({tracks}) {
-  // const search = useSelector((state) => state.searcher);
+export default function MusicCard({children}) {
 
   const [buttonHover, setButtonHover] = useState(false);
 
@@ -30,11 +28,7 @@ export default function MusicCard({tracks}) {
   return (
     <div className="contend-card">
       <div className="card">
-        <div className="card-img">
-          <Image src={""} alt="name" width={100} height={100} />
-        </div>
-        <h2>{tracks?.name}</h2>
-        <p>{tracks?.artists}</p>
+        {children}
       </div>
     </div>
   );
