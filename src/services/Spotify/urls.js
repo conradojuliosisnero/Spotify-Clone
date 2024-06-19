@@ -1,6 +1,8 @@
 export const spotifyUrls = {
   spotify: {
     all: "",
+    recomendations:
+      "https://spotify23.p.rapidapi.com/recommendations/?limit=20&seed_tracks=0c6xIDDpzE81m2q797ordA&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry",
     songs:
       "https://spotify-web2.p.rapidapi.com/tracks/?ids=4WNcduiCmDNfmTEz7JvmLv",
     albums:
