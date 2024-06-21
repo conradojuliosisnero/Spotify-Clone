@@ -1,5 +1,5 @@
 import Container from "@/components/Contained/Contained";
-import MusicCard from "../Home/CardSearch/Card";
+import MusicCard from "../MusiCard/Card";
 
 export default function Albums() {
   return (
