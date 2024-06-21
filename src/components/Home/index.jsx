@@ -1,6 +1,6 @@
 import Container from "@/components/Contained/Contained";
-import MusicCard from "./CardSearch/Card";
-import getSongs from "@/services/Spotify/songs";
+import MusicCard from "../MusiCard/Card";
+import getSongs from "@/services/songs";
 import Image from "next/image";
 import defaul from "../../../public/img/image.svg";
 
@@ -8,16 +8,16 @@ const Home = async () => {
   const songs = await getSongs();
 
   return (
-    <Container name="Home">
+    <Container name="recomendations">
       {songs ? (
         songs.map((track, index) => {
           const imageUrl =
             track.album && track.album.images && track.album.images.length > 0
-              ? track.album.images[0].url 
+              ? track.album.images[0].url
               : defaul;
 
           return (
-            <MusicCard track={track} key={index}>
+            <MusicCard key={index}>
               <div className="card-img">
                 <Image
                   src={imageUrl}
