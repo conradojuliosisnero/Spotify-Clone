@@ -23,12 +23,16 @@
 	overflow: hidden;
 }
 
-.card h2 {
+.card .trunk-text {
 	margin-top: 1.5rem;
 	margin-bottom: 1rem;
 	font-size: 1.6rem;
+	width: 100%;
 	color: #fff;
+	white-space: nowrap;
 	font-weight: 600;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .card p {
