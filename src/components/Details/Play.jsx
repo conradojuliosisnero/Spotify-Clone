@@ -7,7 +7,7 @@ export default function Play() {
       <Link
         className="w-24 h-24 rounded-full bg-green-500 text-black
         flex justify-center items-center m-3 hover:scale-105"
-        href={""}
+        href={''}
       >
         <svg
           fill="#000000"
@@ -19,6 +19,12 @@ export default function Play() {
           <path d="M18.432 7.5h4.547v17h-4.547zM9.022 7.5h4.545v17H9.022z" />
         </svg>
       </Link>
+
+      <div className="">
+        <span className="">
+          list icon
+        </span>
+      </div>
     </div>
   );
 }

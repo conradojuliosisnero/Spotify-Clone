@@ -1,15 +1,16 @@
 import Container from "@/components/Contained/Contained";
-import getSongs from "@/services/songs";
 import Image from "next/image";
 import MusicCard from "../MusiCard/Card";
+import { useSelector } from "react-redux";
+import searchSlice from "@/store/slices/searchSlice";
 
-export default async function Search() {
-  const songs = await getSongs();
+export default function Search() {
 
   return (
     <Container name="Buscar">
-      {songs ? (
-        songs.map((track, index) => {
+      {/* <MusicCard /> */}
+      {track ? (
+        track.map((track, index) => {
           const imageUrl =
             track.album && track.album.images && track.album.images.length > 0
               ? track.album.images[0].url
@@ -32,7 +33,7 @@ export default async function Search() {
         })
       ) : (
         <div className="text-7xl font-bold w-full flex justify-center">
-          Not found :c
+          Sources not found :c
         </div>
       )}
     </Container>
