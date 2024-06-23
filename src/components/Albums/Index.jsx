@@ -6,12 +6,6 @@ export default function Albums() {
     <Container name="Albums">
       <MusicCard />
       <MusicCard />
-      <MusicCard />
-      <MusicCard />
-      <MusicCard />
-      <MusicCard />
-      <MusicCard />
-      <MusicCard />
     </Container>
   );
 }
