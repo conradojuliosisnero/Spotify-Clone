@@ -1,43 +1,50 @@
 import Container from "@/components/Contained/Contained";
 import MusicCard from "../MusiCard/Card";
-import getSongs from "@/services/songs";
+import getRecomendations from "@/services/recomendations";
 import Image from "next/image";
 import defaul from "../../../public/img/image.svg";
 
-const Home = async () => {
-  const songs = await getSongs();
+export default async function Home() {
+  const { browseStart } = await getRecomendations();
+  const recomendations = browseStart.sections.items && browseStart.sections.items[0].sectionItems
 
   return (
     <Container name="recomendations">
-      {songs ? (
-        songs.map((track, index) => {
-          const imageUrl =
-            track.album && track.album.images && track.album.images.length > 0
-              ? track.album.images[0].url
-              : defaul;
+      {recomendations ? (
+        recomendations.items.map((track, index) => {
+          // verification of the recomendation song name
+          const songName = track.content.data.data ? track.content.data.data.cardRepresentation.title.transformedLabel
+            : track.content.data.title.transformedLabel
 
+          // verification of the recomendation song image
+          const imageUrl = track.content.data.data && track.content.data.data.cardRepresentation.artwork.sources[0].url
+
+          // backgroundColor card
+          const backgroundColor =
+            track.content.data.data &&
+            track.content.data.data.cardRepresentation.backgroundColor.hex;
+          
           return (
-            <MusicCard key={index}>
+            <MusicCard key={index} styles={backgroundColor}>
               <div className="card-img">
                 <Image
-                  src={imageUrl}
+                  src={imageUrl ? imageUrl : defaul}
                   alt="image-abum"
                   width={100}
                   height={100}
+                  quality={60}
                 />
               </div>
-              <h2 className="trunk-text">{track.name}</h2>
-              <span>{track.artists[0].name}</span>
+              <h2 className="trunk-text">{songName}</h2>
             </MusicCard>
           );
         })
       ) : (
         <div className="text-7xl font-bold w-full flex justify-center">
-          Not found :c
+          Sources not found :c
         </div>
       )}
     </Container>
   );
-};
+}
 
-export default Home;

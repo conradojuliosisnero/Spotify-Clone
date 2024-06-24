@@ -1,10 +1,12 @@
+"use client"
 import Container from "@/components/Contained/Contained";
 import Image from "next/image";
 import MusicCard from "../MusiCard/Card";
 import { useSelector } from "react-redux";
-import searchSlice from "@/store/slices/searchSlice";
 
 export default function Search() {
+
+  const track = useSelector((state) => state.search.track);
 
   return (
     <Container name="Buscar">
