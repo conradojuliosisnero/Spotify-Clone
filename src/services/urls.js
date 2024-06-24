@@ -1,7 +1,11 @@
-export const spotifyUrls = {
+const spotifyUrls = {
   spotify: {
-    recomendations: "https://spotify23.p.rapidapi.com/recommendations/?limit=20&seed_tracks=0c6xIDDpzE81m2q797ordA&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry",
-    songs: "https://spotify-web2.p.rapidapi.com/tracks/?ids=4WNcduiCmDNfmTEz7JvmLv",
-    albums: "https://spotify-web2.p.rapidapi.com/album_tracks/?id=3IBcauSj5M2A6lTeffJzdv&offset=0&limit=300",
+    recomendations: "https://spotify23.p.rapidapi.com/browse_all/",
+    songs:
+      "https://spotify-web2.p.rapidapi.com/tracks/?ids=4WNcduiCmDNfmTEz7JvmLv",
+    albums:
+      "https://spotify-web2.p.rapidapi.com/album_tracks/?id=3IBcauSj5M2A6lTeffJzdv&offset=0&limit=300",
   },
 };
+
+export default spotifyUrls;

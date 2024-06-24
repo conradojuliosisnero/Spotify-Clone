@@ -1,24 +1,29 @@
 import Error from "@/components/Error/Error";
 export default async function getSearchTracks(setSearchResults, searchValue) {
-const options = {
-  method: "GET",
-  headers: {
-    "x-rapidapi-key": "9fa5dbd58fmshd408552cba39728p1ecfedjsn73ab9da00e48",
-    "x-rapidapi-host": "spotify23.p.rapidapi.com",
-  },
-};
+  if (!setSearchResults || !searchValue) {
+    throw new Error("Missing required parameters");
+  }
+
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": process.env.SPOTIFY_API_KEY,
+      "x-rapidapi-host": "spotify23.p.rapidapi.com",
+    },
+  };
 
   try {
     const response = await fetch(
-      `https://spotify23.p.rapidapi.com/search/?q=${searchValue}&type=multi&offset=0&limit=10&numberOfTopResults=5`,
+      `https://spotify23.p.rapidapi.com/search/?q=${encodeURIComponent(searchValue)}&type=multi&offset=0&limit=10&numberOfTopResults=5`,
       options
     );
-    if (response.ok) {
-      const data = await response.json();
-      setSearchResults(data);
-    } else {
-      throw new Error("Error al obtener datos");
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const data = await response.json();
+    setSearchResults(data);
   } catch (error) {
     console.error(error);
     return <Error />;

@@ -3,7 +3,7 @@ import "../Home/styles.css";
 import { useState} from "react";
 import ButtonPlay from "./ButtonPlay";
 
-export default function MusicCard({ children }) {
+export default function MusicCard({ children,styles}) {
   const [buttonHover, setButtonHover] = useState(false);
 
   function handlerButton() {
@@ -16,6 +16,7 @@ export default function MusicCard({ children }) {
 
   return (
     <div
+      style={{backgroundColor:styles}}
       className="contend-card relative"
       onMouseEnter={handlerButton}
       onMouseLeave={handlerButtonDisHover}
