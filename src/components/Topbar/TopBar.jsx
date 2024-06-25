@@ -2,7 +2,7 @@
 import "@/styles/styles.css";
 import Button from "./UserButtons/Button";
 import Arrow from "./ArrowsTopBar/Arrow";
-import Search from "../Search/Input/Searcher";
+import Search from "../Search/Searcher";
 import { usePathname } from "next/navigation";
 
 export default function TopBar() {

@@ -1,31 +1,27 @@
-import Error from "@/components/Error/Error";
-export default async function getSearchTracks(setSearchResults, searchValue) {
-  if (!setSearchResults || !searchValue) {
-    throw new Error("Missing required parameters");
-  }
-
-  const options = {
+import { spotifyUrls } from "./urls";
+export default async function getSearchTracks(query) {
+  // URL de la API de Spotify
+  const URL = `${spotifyUrls.spotify.search}?q=${query}&type=multi&offset=0&limit=10&numberOfTopResults=5`;
+  // opciones de la petición
+  const OPTIONS = {
     method: "GET",
     headers: {
-      "x-rapidapi-key": process.env.SPOTIFY_API_KEY,
+      "x-rapidapi-key": `${process.env.SPOTIFY_API_KEY}`,
       "x-rapidapi-host": "spotify23.p.rapidapi.com",
     },
   };
 
   try {
-    const response = await fetch(
-      `https://spotify23.p.rapidapi.com/search/?q=${encodeURIComponent(searchValue)}&type=multi&offset=0&limit=10&numberOfTopResults=5`,
-      options
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    const response = await fetch(URL, OPTIONS);
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } else {
+      throw new Error("Failed to fetch tracks");
     }
-
-    const data = await response.json();
-    setSearchResults(data);
   } catch (error) {
-    console.error(error);
-    return <Error />;
+    console.error("Error fetching tracks:", error);
+    return null;
   }
 }
