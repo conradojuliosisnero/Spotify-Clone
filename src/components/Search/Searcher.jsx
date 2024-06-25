@@ -1,54 +1,29 @@
 "use client";
+import "./styles.css";
+import Image from "next/image";
+import search from "../../../public/assets/search.svg";
+import close from "../../../public/assets/close.svg";
 import getSearchTracks from "@/services/search";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSearch } from "@/store/slices/searchSlice";
-import close from "../../../../public/assets/close.svg";
-import search from "../../../../public/assets/search.svg";
-import Image from "next/image";
-import "../styles.css";
+import { useRouter } from "next/navigation";
 
 export default function Search() {
   // States
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  // update search in redux
-  const dispathc = useDispatch();
-  dispathc(setSearch(searchResults));
-
-  console.log(searchResults);
-
-  // async Functions
-  async function handleSearchClick() {
-    // Check if search value is empty
+  
+  const router = useRouter();
+  function handleSearchClick() {
     if (searchValue.trim() === "") {
-      setSearchValue(searchValue);
-      setSearchResults([]);
-      return;
+      // si el input esta vacio
+      setSearchValue(searchValue); // seteo el valor del input
+    } else {
+      router.push(`/search?query=${encodeURIComponent(searchValue)}`);
     }
-    setIsLoading(true);
-
-    // Get search results
-    try {
-      // le pasamos el setSearchResults y el searchValue
-      const results = await getSearchTracks(setSearchResults, searchValue);
-      // if results ok
-      if (results.ok) {
-        const data = await results.json();
-        setSearchResults(data);
-        setIsLoading(false);
-        setIsError(false);
-      } else {
-        setIsError(true);
-      }
-    } catch (error) {
-      console.error("Error al buscar:", error);
-    }
-    // Stop loading
-    setIsLoading(false);
   }
 
   // Functions
@@ -101,4 +76,16 @@ export default function Search() {
       </button>
     </div>
   );
+}
+
+export async function getServerSideProps(props) {
+  console.log(props);
+  const response = await getSearchTracks(query);
+  if (!response.ok) {
+    const data = await response.json();
+    console.log(data);
+    return {
+      props: { data },
+    };
+  }
 }

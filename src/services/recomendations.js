@@ -1,4 +1,4 @@
-import spotifyUrls from "./urls";
+import { spotifyUrls } from "./urls";
 
 export default async function getRecomendations() {
   const URL = spotifyUrls.spotify.recomendations;

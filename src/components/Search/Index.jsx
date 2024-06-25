@@ -3,6 +3,7 @@ import Container from "@/components/Contained/Contained";
 import Image from "next/image";
 import MusicCard from "../MusiCard/Card";
 import { useSelector } from "react-redux";
+import Error from "../Error/Error";
 
 export default function Search() {
 
@@ -13,11 +14,6 @@ export default function Search() {
       {/* <MusicCard /> */}
       {track ? (
         track.map((track, index) => {
-          const imageUrl =
-            track.album && track.album.images && track.album.images.length > 0
-              ? track.album.images[0].url
-              : defaul;
-
           return (
             <MusicCard key={index}>
               <div className="card-img">
@@ -34,9 +30,9 @@ export default function Search() {
           );
         })
       ) : (
-        <div className="text-7xl font-bold w-full flex justify-center">
-          Sources not found :c
-        </div>
+        <Error>
+            {"Error al obtener datos"}
+        </Error>
       )}
     </Container>
   );
