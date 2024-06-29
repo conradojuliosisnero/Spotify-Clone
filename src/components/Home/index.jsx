@@ -22,37 +22,7 @@ export default async function Home() {
 
       <ArtistContainer name="Artistas">
         {/* Artist Card */}
-        {artists ? (
-          artists.map(
-            (artist) => (
-              console.log(artist),
-              (
-                <ArtistCard key={artist.id}>
-                  {/* Image */}
-                  <div className="rounded-full relative flex p-3 justify-center items-center m-2 bg-black">
-                    <Image
-                      src={!artist.image ? defaul : artist.images[0].url}
-                      priority
-                      width={100}
-                      height={100}
-                      alt="artist-image"
-                    ></Image>
-                  </div>
 
-                  {/* Text */}
-                  <div className="w-full p-3 flex flex-col justify-center items-start">
-                    <h1 className="text-white text-2xl font-normal">
-                      {artist.name}
-                    </h1>
-                    <span className="my-3 text-1xl">{artist.type}</span>
-                  </div>
-                </ArtistCard>
-              )
-            )
-          )
-        ) : (
-          <Error />
-        )}
       </ArtistContainer>
 
       {/* RECOMENDATIONS CONTAINER  */}
