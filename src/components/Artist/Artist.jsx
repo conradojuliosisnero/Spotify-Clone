@@ -1,5 +1,5 @@
 import Container from "../Contained/Contained";
-import MusicCard from "../Home/CardSearch/Card";
+import MusicCard from "../MusiCard/Card";
 
 const Artist = () => {
   return (

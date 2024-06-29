@@ -1,58 +1,59 @@
 "use client";
-import "../styles.css";
+import "./styles.css";
 import Image from "next/image";
-import search from "../../../../public/assets/search.svg";
-import close from "../../../../public/assets/close.svg";
-// import getSearchTracks from "@/services/Spotify/searchTracks";
+import search from "../../../public/assets/search.svg";
+import close from "../../../public/assets/close.svg";
+import getSearchTracks from "@/services/search";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSearch } from "@/features/search/songSlice";
+import { setSearch } from "@/store/slices/searchSlice";
+import { useRouter } from "next/navigation";
 
 export default function Search() {
+  // States
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-  const dispathc = useDispatch();
-  dispathc(setSearch(searchResults));
-
-  async function handleSearchClick() {
+  
+  const router = useRouter();
+  function handleSearchClick() {
     if (searchValue.trim() === "") {
-      setSearchValue(searchValue);
-      setSearchResults([]);
-      return;
+      // si el input esta vacio
+      setSearchValue(searchValue); // seteo el valor del input
+    } else {
+      router.push(`/search?query=${encodeURIComponent(searchValue)}`);
     }
-
-    setIsLoading(true);
-    try {
-      const results = await getSearchTracks(setSearchResults, searchValue);
-    } catch (error) {
-      console.error("Error al buscar:", error);
-    }
-    setIsLoading(false);
   }
 
+  // Functions
   function handleSearchInputChange(e) {
     setSearchValue(e.target.value);
   }
 
+  // Clear Input
   function clearSearch() {
     setSearchValue("");
   }
 
   return (
     <div className="search-container">
+      {/* Box search Input  */}
       <div className="input-search">
+        {/* Search icon  */}
         <div className="icon-search">
           <Image src={search} width={20} height={20} alt="search icon"></Image>
         </div>
+
+        {/* Input search  */}
         <input
           className="input"
           type="text"
           value={searchValue}
           onChange={handleSearchInputChange}
         />
-        <div className="icon-search">
+        {/* Clear Input  Icon  */}
+        <div className="icon-search cursor-pointer">
           {searchValue && (
             <Image
               src={close}
@@ -64,6 +65,8 @@ export default function Search() {
           )}
         </div>
       </div>
+
+      {/* Button Search  */}
       <button
         className="button__search"
         onClick={handleSearchClick}
@@ -73,4 +76,16 @@ export default function Search() {
       </button>
     </div>
   );
+}
+
+export async function getServerSideProps(props) {
+  console.log(props);
+  const response = await getSearchTracks(query);
+  if (!response.ok) {
+    const data = await response.json();
+    console.log(data);
+    return {
+      props: { data },
+    };
+  }
 }
