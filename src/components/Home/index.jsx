@@ -18,19 +18,6 @@ export default async function Home() {
 
   return (
     <>
-      {/* ARTIST CONTAINER  */}
-
-      <ArtistContainer name="Artistas">
-        {/* Artist Card */}
-        {artists ? (
-          artists.items.map((artist, index) => {
-            return <ArtistCard key={index} artist={artist} />;
-          })
-        ) : (
-          <Error> Error al obtener datos </Error>
-        )}
-      </ArtistContainer>
-
       {/* RECOMENDATIONS CONTAINER  */}
 
       <Container name="Recomendaciones">
