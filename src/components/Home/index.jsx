@@ -13,13 +13,9 @@ export default async function Home() {
   const { browseStart } = await getRecomendations();
   const recomendations = browseStart.sections.items && browseStart.sections.items[0].sectionItems;
 
-  // get artists
-  const { artists } = await getArtist();
-
   return (
     <>
       {/* RECOMENDATIONS CONTAINER  */}
-
       <Container name="Recomendaciones">
         {recomendations ? (
           recomendations.items.slice(0, 15).map((track, index) => {
@@ -38,9 +34,9 @@ export default async function Home() {
             const backgroundColor =
               track.content.data.data &&
               track.content.data.data.cardRepresentation.backgroundColor.hex;
-
+            
             return (
-              <MusicCard key={index} styles={backgroundColor}>
+              <MusicCard key={index} styles={backgroundColor} albumId={track.uri}>
                 <div className="card-img">
                   <Image
                     src={imageUrl ? imageUrl : defaul}
