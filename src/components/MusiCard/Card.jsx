@@ -3,25 +3,27 @@ import "../Home/styles.css";
 import { useState} from "react";
 import ButtonPlay from "./ButtonPlay";
 
-export default function MusicCard({ children,styles}) {
+export default function MusicCard({ children, styles, albumId }) {
   const [buttonHover, setButtonHover] = useState(false);
 
-  function handlerButton() {
+  // Function set show button
+  const handlerButton = ()=> {
     setButtonHover(true);
   }
 
-  function handlerButtonDisHover() {
+  // Function set hide button
+  const handlerButtonDisHover = ()=> {
     setButtonHover(false);
   }
 
   return (
     <div
-      style={{backgroundColor:styles}}
+      style={{ backgroundColor: styles }}
       className="contend-card relative"
       onMouseEnter={handlerButton}
       onMouseLeave={handlerButtonDisHover}
     >
-      {buttonHover && <ButtonPlay isHovered={buttonHover} />}
+      {buttonHover && <ButtonPlay isHovered={buttonHover} albumID={albumId} />}
       <div className="card">{children}</div>
     </div>
   );

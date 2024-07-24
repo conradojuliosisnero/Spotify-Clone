@@ -1,32 +1,57 @@
+"use client";
 import Container from "@/components/Contained/Contained";
 import MusicCard from "../MusiCard/Card";
 import getRecomendations from "@/services/recomendations";
 import Image from "next/image";
 import defaul from "../../../public/img/image.svg";
-import ArtistContainer from "@/components/ArtistContainer/Container";
-import ArtistCard from "../ArtistCard/ArtistCard";
-import getArtist from "@/services/artist";
 import Error from "../Error/Error";
+import SkeletonCard from "../Squeleton/Card";
+import { useEffect, useState } from "react";
 
-export default async function Home() {
+export default function Home() {
+  // states
+  const [recomendations, setRecomendations] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
   // get recomendations
-  const { browseStart } = await getRecomendations();
-  const recomendations = browseStart.sections.items && browseStart.sections.items[0].sectionItems;
 
-  // get artists
-  const { artists } = await getArtist();
+  useEffect(() => {
+    const fetchRecomendations = async () => {
+      try {
+        const { browseStart } = await getRecomendations();
+        setRecomendations(browseStart);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching recomendations:", error);
+        setError(true);
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRecomendations();
+  }, []);
+
+  if (loading) { 
+    return <SkeletonCard />;
+  }
+
+  if (error) { 
+    return <Error>Recomendaciones no encontradas</Error>;
+  }
+
+  // get recomendations
+  // const { browseStart } = await getRecomendations();
+  // const recomendations =
+  //   browseStart &&
+  //   browseStart.sections &&
+  //   browseStart.sections.items &&
+  //   browseStart.sections.items[0].sectionItems;
 
   return (
     <>
-      {/* ARTIST CONTAINER  */}
-
-      <ArtistContainer name="Artistas">
-        {/* Artist Card */}
-
-      </ArtistContainer>
-
       {/* RECOMENDATIONS CONTAINER  */}
-
       <Container name="Recomendaciones">
         {recomendations ? (
           recomendations.items.slice(0, 15).map((track, index) => {
@@ -47,7 +72,11 @@ export default async function Home() {
               track.content.data.data.cardRepresentation.backgroundColor.hex;
 
             return (
-              <MusicCard key={index} styles={backgroundColor}>
+              <MusicCard
+                key={index}
+                styles={backgroundColor}
+                albumId={track.uri}
+              >
                 <div className="card-img">
                   <Image
                     src={imageUrl ? imageUrl : defaul}
@@ -62,11 +91,33 @@ export default async function Home() {
             );
           })
         ) : (
-          <div className="text-7xl font-bold w-full flex justify-center">
-            Sources not found :c
+            <div className="text-7xl font-bold w-full justify-center items-center">
+              sources not found :(
           </div>
         )}
       </Container>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  try {
+    const { browseStart } = await getRecomendations();
+    const recomendations =
+      browseStart.sections.items && browseStart.sections.items[0].sectionItems;
+
+    console.log(recomendations);
+    return {
+      props: {
+        recomendations,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching recomendations:", error);
+    return {
+      props: {
+        recomendations: null,
+      },
+    };
+  }
 }
