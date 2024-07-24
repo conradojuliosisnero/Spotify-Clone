@@ -7,12 +7,12 @@ export default function MusicCard({ children, styles, albumId }) {
   const [buttonHover, setButtonHover] = useState(false);
 
   // Function set show button
-  function handlerButton() {
+  const handlerButton = ()=> {
     setButtonHover(true);
   }
 
   // Function set hide button
-  function handlerButtonDisHover() {
+  const handlerButtonDisHover = ()=> {
     setButtonHover(false);
   }
 
