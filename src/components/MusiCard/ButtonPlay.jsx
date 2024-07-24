@@ -7,9 +7,12 @@ export default function ButtonPlay({ isHovered, albumID }) {
 
   // Function to extract id from albumID
   function albumIdExtraction(id) {
-    const string = id;
-    const parts = string.split(":");
-    return parts[2];
+    if (id) {
+      const string = id;
+      const parts = string.split(":");
+      return parts[2];
+    }
+    return null;
   }
   // save id in a variable
   const IdExtraction = albumIdExtraction(albumID);
@@ -20,7 +23,7 @@ export default function ButtonPlay({ isHovered, albumID }) {
         justify-center items-center absolute bottom-1/3 right-5 hover:scale-110
         ${isHovered ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
     >
-      <Link href={`/albums/${(`details-album/`, IdExtraction)}`}> 
+      <Link href={`${albumID}`}> 
         <Image src={playIcon} alt="icon-play" width={20} height={20} />
       </Link>
     </div>
