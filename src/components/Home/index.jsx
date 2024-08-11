@@ -41,13 +41,6 @@ export default function Home() {
     return <Error>Recomendaciones no encontradas</Error>;
   }
 
-  // get recomendations
-  // const { browseStart } = await getRecomendations();
-  // const recomendations =
-  //   browseStart &&
-  //   browseStart.sections &&
-  //   browseStart.sections.items &&
-  //   browseStart.sections.items[0].sectionItems;
 
   return (
     <>

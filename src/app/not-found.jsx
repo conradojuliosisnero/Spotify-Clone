@@ -8,7 +8,7 @@ export default function GlobalError() {
   const router = useRouter();
 
   function redirectHome() {
-    router.push("/");
+    router.push("/home");
   }
 
   return (
