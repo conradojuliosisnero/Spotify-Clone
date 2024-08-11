@@ -6,7 +6,7 @@ import artist from '../../public/assets/music.svg'
 
 const menuItems = [
   {
-    href: "/",
+    href: "/home",
     iconSrc: home,
     text: "Inicio",
   },
