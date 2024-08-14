@@ -1,7 +1,7 @@
-export default function page() {
+import About from "@/components/About/About";
+
+export default function Disclaimer() {
   return (
-    <div>
-        about
-    </div>
-  )
+    <About/>
+  );
 }

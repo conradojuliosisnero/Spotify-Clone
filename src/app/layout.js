@@ -15,7 +15,9 @@ export default function RootLayout({ children }) {
       <body className={rubik.className}>
         <ReduxProvider>
           <NextAuthProvider>
-            <ProvidersNextUI>{children}</ProvidersNextUI>
+            <ProvidersNextUI>
+              {children}
+            </ProvidersNextUI>
           </NextAuthProvider>
         </ReduxProvider>
       </body>
