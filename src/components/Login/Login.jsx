@@ -1,8 +1,9 @@
 "use client";
-import { CloseEyeSvg, EyeSvg } from "@/data/svg";
+import { CloseEyeSvg, EyeSvg, GoogleSvg } from "@/data/svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -90,6 +91,16 @@ export default function Login() {
       setIsError(true);
     } finally {
       setIsLoading(false);
+    }
+  }
+
+  // google login
+  async function handleGoogleLogin() {
+    try {
+      await signIn("google", { callbackUrl: "/home" });
+      console.log("login con google");
+    } catch (error) {
+      console.log(error.message);
     }
   }
 
@@ -204,6 +215,16 @@ export default function Login() {
           >
             Crear una cuenta
           </Link>
+        </div>
+
+        <div className="w-full max-w-md p-6 bg-[#1a1a1a] rounded-lg flex justify-center items-center">
+          <span>O iniciar sesión con</span>
+        </div>
+        <div
+          onClick={handleGoogleLogin}
+          className="flex justify-center rounded-md items-center px-4 py-3 shadow-lg hover:shadow-2xl hover:bg-[#1f1f1f] cursor-pointer transition-all"
+        >
+          <GoogleSvg width={38} height={38} />
         </div>
       </div>
     </div>
