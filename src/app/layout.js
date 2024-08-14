@@ -1,9 +1,8 @@
-"use client";
 import { Rubik } from "next/font/google";
 import "./globals.css";
-import { Provider } from "react-redux";
-import { store } from "@/store/store";
-import { Providers } from "./Providers";
+import { ProvidersNextUI } from "./Providers";
+import { NextAuthProvider } from "@/auth/Provider";
+import { ReduxProvider } from "@/providers/Provider";
 
 const rubik = Rubik({
   weight: ["400", "500", "600"],
@@ -13,13 +12,13 @@ const rubik = Rubik({
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Provider store={store}>
-        <body className={rubik.className}>
-          <Providers>
-            {children}
-          </Providers>
-        </body>
-      </Provider>
+      <body className={rubik.className}>
+        <ReduxProvider>
+          <NextAuthProvider>
+            <ProvidersNextUI>{children}</ProvidersNextUI>
+          </NextAuthProvider>
+        </ReduxProvider>
+      </body>
     </html>
   );
 }
