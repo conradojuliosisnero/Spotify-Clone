@@ -1,9 +1,23 @@
+"use client";
 import "@/styles/styles.css";
 import Link from "next/link";
 import Image from "next/image";
 import menuItems from "@/data/dataMenu";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 export default function Nav() {
+  const { data: session } = useSession();
+
+  async function handleLogout() {
+    try {
+      await signOut({ callbackUrl: "/" });
+      console.log("Logout successful");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   return (
     <ul className="nav-main">
       {menuItems?.map((link, index) => (
@@ -20,6 +34,14 @@ export default function Nav() {
           </Link>
         </li>
       ))}
+      {session && (
+        <button
+          className="w-full text-center text-white text-3xl bg-[#1db954] rounded-lg p-6 hover:bg-[#1ed760] hover:scale-105 transition-all"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
+      )}
     </ul>
   );
 }

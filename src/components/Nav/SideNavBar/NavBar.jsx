@@ -7,6 +7,7 @@ export default function NavBar() {
     <nav className="navbar">
       {/* options nav */}
       <Nav />
+      {/* userLogo */}
     </nav>
   );
 }
