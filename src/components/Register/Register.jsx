@@ -111,7 +111,7 @@ export default function Login() {
         <div className="mb-6 text-center">
           <h1 className="text-3xl font-bold">Registrate</h1>
           <p className="text-muted-foreground">
-            Ingresa tus credenciales para registrarte{" "}
+            Ingresa tus credenciales para registrarte en{" "}
             <Link
               href="/about"
               style={{ color: "#1db954", textDecoration: "underline" }}
@@ -193,7 +193,7 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full px-4 py-2 font-medium text-white bg-[#1db954] rounded-md hover:bg-[#1ed760] focus:outline-none focus:ring-2 focus:ring-[#1db954]"
+            className="btn-primary"
             onClick={() => ""}
           >
             {isLoading ? "Registrando..." : "Registrarse"}

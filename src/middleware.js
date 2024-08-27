@@ -6,7 +6,7 @@ export async function middleware(req) {
   const { pathname } = req.nextUrl;
 
   // Si el usuario está autenticado y trata de acceder a "/", redirigirlo a "/home" o cualquier otra ruta protegida
-  if (token && pathname === "/") {
+  if ((token && pathname === "/") || pathname === "/register") {
     return NextResponse.redirect(new URL("/home", req.url));
   }
 
@@ -34,6 +34,7 @@ export async function middleware(req) {
 export const config = {
   matcher: [
     "/",
+    "/register",
     "/home",
     "/search",
     "/albums",

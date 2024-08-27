@@ -193,7 +193,7 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full px-4 py-2 font-medium text-white bg-[#1db954] rounded-md hover:bg-[#1ed760] focus:outline-none focus:ring-2 focus:ring-[#1db954]"
+            className="btn-primary"
             onClick={() => ""}
           >
             {isLoading ? "Iniciando Sesión..." : "Iniciar sesión"}
