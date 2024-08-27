@@ -4,10 +4,9 @@ import Image from "next/image";
 import search from "../../../public/assets/search.svg";
 import close from "../../../public/assets/close.svg";
 import getSearchTracks from "@/services/search";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { setSearch } from "@/store/slices/searchSlice";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Search() {
   // States
@@ -15,26 +14,26 @@ export default function Search() {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  const dispatch = useDispatch();
   
+
   const router = useRouter();
-  function handleSearchClick() {
+
+  const handleSearchClick = () => {
     if (searchValue.trim() === "") {
-      // si el input esta vacio
-      setSearchValue(searchValue); // seteo el valor del input
+      setSearchValue(searchValue);
     } else {
       router.push(`/search?query=${encodeURIComponent(searchValue)}`);
     }
-  }
+  };
 
-  // Functions
-  function handleSearchInputChange(e) {
+  const handleSearchInputChange = (e) => {
     setSearchValue(e.target.value);
-  }
+  };
 
-  // Clear Input
-  function clearSearch() {
+  const clearSearch = () => {
     setSearchValue("");
-  }
+  };
 
   return (
     <div className="search-container">

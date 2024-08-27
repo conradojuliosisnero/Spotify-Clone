@@ -35,10 +35,7 @@ export default function Nav() {
         </li>
       ))}
       {session && (
-        <button
-          className="w-full text-center text-white text-3xl bg-[#1db954] rounded-lg p-6 hover:bg-[#1ed760] hover:scale-105 transition-all"
-          onClick={handleLogout}
-        >
+        <button className="btn-primary" onClick={handleLogout}>
           Logout
         </button>
       )}
