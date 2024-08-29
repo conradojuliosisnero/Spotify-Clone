@@ -1,116 +1,71 @@
 "use client";
+import { useEffect, useState } from "react";
 import Container from "@/components/Contained/Contained";
 import MusicCard from "../MusiCard/Card";
-import getRecomendations from "@/services/recomendations";
 import Image from "next/image";
-import defaul from "../../../public/img/image.svg";
+import defaultImage from "../../../public/img/image.svg";
 import Error from "../Error/Error";
 import SkeletonCard from "../Squeleton/Card";
-import { useEffect, useState } from "react";
 
 export default function Home() {
-  // states
-  const [recomendations, setRecomendations] = useState(null);
+  const [recommendations, setRecommendations] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  // get recomendations
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchRecomendations = async () => {
+    const fetchRecommendations = async () => {
+      setLoading(true);
       try {
-        const { browseStart } = await getRecomendations();
-        setRecomendations(browseStart);
+        const response = await fetch("/api/home");
+        const data = await response.json();
+        setRecommendations(data);
         setLoading(false);
+        setError(null);
       } catch (error) {
-        console.error("Error fetching recomendations:", error);
-        setError(true);
-        setLoading(false);
+        setError("Failed to fetch recommendations");
       } finally {
         setLoading(false);
       }
     };
-    fetchRecomendations();
+    fetchRecommendations();
   }, []);
 
-  if (loading) { 
+  if (loading) {
     return <SkeletonCard />;
   }
 
-  if (error) { 
-    return <Error>Recomendaciones no encontradas</Error>;
+  if (error) {
+    return <Error>{error}</Error>;
   }
-
 
   return (
     <>
-      {/* RECOMENDATIONS CONTAINER  */}
       <Container name="Recomendaciones">
-        {recomendations ? (
-          recomendations.items.slice(0, 15).map((track, index) => {
-            // verification of the recomendation song name
-            const songName = track.content.data.data
-              ? track.content.data.data.cardRepresentation.title
-                  .transformedLabel
-              : track.content.data.title.transformedLabel;
-
-            // verification of the recomendation song image
-            const imageUrl =
-              track.content.data.data &&
-              track.content.data.data.cardRepresentation.artwork.sources[0].url;
-
-            // backgroundColor card
-            const backgroundColor =
-              track.content.data.data &&
-              track.content.data.data.cardRepresentation.backgroundColor.hex;
-
-            return (
-              <MusicCard
-                key={index}
-                styles={backgroundColor}
-                albumId={track.uri}
-              >
-                <div className="card-img">
-                  <Image
-                    src={imageUrl ? imageUrl : defaul}
-                    alt="image-abum"
-                    width={100}
-                    height={100}
-                    quality={60}
-                  />
-                </div>
-                <h2 className="trunk-text">{songName}</h2>
-              </MusicCard>
-            );
-          })
+        {recommendations && recommendations.categories ? (
+          recommendations.categories.slice(0, 45).map((category, index) => (
+            <MusicCard
+              key={index}
+              styles={category.backgroundColor}
+              albumId={category.uri}
+            >
+              <div className="card-img">
+                <Image
+                  src={category.imageUrl || defaultImage}
+                  alt={category.title || "Album cover"}
+                  width={100}
+                  height={100}
+                  quality={60}
+                />
+              </div>
+              <h2 className="trunk-text">{category.title}</h2>
+            </MusicCard>
+          ))
         ) : (
-            <div className="text-7xl font-bold w-full justify-center items-center">
-              sources not found :(
+          <div className="text-7xl font-bold w-full justify-center items-center">
+            No recommendations found :(
           </div>
         )}
       </Container>
     </>
   );
-}
-
-export async function getServerSideProps() {
-  try {
-    const { browseStart } = await getRecomendations();
-    const recomendations =
-      browseStart.sections.items && browseStart.sections.items[0].sectionItems;
-
-    console.log(recomendations);
-    return {
-      props: {
-        recomendations,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching recomendations:", error);
-    return {
-      props: {
-        recomendations: null,
-      },
-    };
-  }
 }
