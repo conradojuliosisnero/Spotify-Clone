@@ -4,26 +4,32 @@ import Image from "next/image";
 import search from "../../../public/assets/search.svg";
 import close from "../../../public/assets/close.svg";
 import getSearchTracks from "@/services/search";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setResults } from "@/store/slices/searchSlice";
 
 export default function Search() {
   // States
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
 
   const dispatch = useDispatch();
-  
 
-  const router = useRouter();
-
-  const handleSearchClick = () => {
+  const handleSearchClick = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
     if (searchValue.trim() === "") {
       setSearchValue(searchValue);
-    } else {
-      router.push(`/search?query=${encodeURIComponent(searchValue)}`);
+    }
+    try {
+      const response = await fetch(`/api/search?q=${searchValue}`);
+      const data = await response.json();
+      dispatch(setResults(data));
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

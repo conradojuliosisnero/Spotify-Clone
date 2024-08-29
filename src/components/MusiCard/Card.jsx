@@ -2,6 +2,7 @@
 import "../Home/styles.css";
 import { useState} from "react";
 import ButtonPlay from "./ButtonPlay";
+import Link from "next/link";
 
 export default function MusicCard({ children, styles, albumId }) {
   const [buttonHover, setButtonHover] = useState(false);
@@ -24,7 +25,9 @@ export default function MusicCard({ children, styles, albumId }) {
       onMouseLeave={handlerButtonDisHover}
     >
       {buttonHover && <ButtonPlay isHovered={buttonHover} albumID={albumId} />}
-      <div className="card">{children}</div>
+      <div className="card">
+        {children}
+      </div>
     </div>
   );
 }
