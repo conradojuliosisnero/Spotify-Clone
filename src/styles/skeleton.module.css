@@ -16,7 +16,7 @@
   justify-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background-color: #cccccc32;
+  background-color: #dfdfdf8c;
   border-radius: 10px;
 }
 
@@ -38,12 +38,12 @@
 
 @keyframes skeleton-loading {
   0% {
-    background-color: #cccccc32;
+    background-color: #d8d8d869;
   }
   50% {
     background-color: #656565;
   }
   100% {
-    background-color: #cccccc32;
+    background-color: #d8d8d869;
   }
 }

@@ -1,8 +1,5 @@
-import Error from "@/components/Error/Error";
-import spotifyUrls from "./urls";
-
-export async function getAlbums() {
-  const URL = spotifyUrls.spotify.albums;
+export default async function getAlbums() {
+  const URL = `${process.env.SPOTIFY_API_URL}/albums`;
   const OPTIONS = {
     method: "GET",
     headers: {

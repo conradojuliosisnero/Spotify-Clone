@@ -6,35 +6,40 @@ import close from "../../../public/assets/close.svg";
 import getSearchTracks from "@/services/search";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSearch } from "@/store/slices/searchSlice";
-import { useRouter } from "next/navigation";
+import { setResults } from "@/store/slices/searchSlice";
 
 export default function Search() {
   // States
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
 
-  
-  const router = useRouter();
-  function handleSearchClick() {
+  const dispatch = useDispatch();
+
+  const handleSearchClick = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
     if (searchValue.trim() === "") {
-      // si el input esta vacio
-      setSearchValue(searchValue); // seteo el valor del input
-    } else {
-      router.push(`/search?query=${encodeURIComponent(searchValue)}`);
+      setSearchValue(searchValue);
     }
-  }
+    try {
+      const response = await fetch(`/api/search?q=${searchValue}`);
+      const data = await response.json();
+      dispatch(setResults(data));
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-  // Functions
-  function handleSearchInputChange(e) {
+  const handleSearchInputChange = (e) => {
     setSearchValue(e.target.value);
-  }
+  };
 
-  // Clear Input
-  function clearSearch() {
+  const clearSearch = () => {
     setSearchValue("");
-  }
+  };
 
   return (
     <div className="search-container">

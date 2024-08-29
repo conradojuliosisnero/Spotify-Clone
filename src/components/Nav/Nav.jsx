@@ -5,8 +5,12 @@ import Image from "next/image";
 import menuItems from "@/data/dataMenu";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 export default function Nav() {
+  const [width, setWidth] = useState(null);
+  const [open, setOpen] = useState(false);
+
   const { data: session } = useSession();
 
   async function handleLogout() {
@@ -18,30 +22,47 @@ export default function Nav() {
     }
   }
 
+
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    const handleResize = () => setWidth(window.innerWidth);
+    const handleOpen = () => {
+      if (width >= 769) { 
+        setOpen(true);
+      }else{
+        setOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    handleOpen();
+    return () => window.removeEventListener("resize", handleResize);
+  }, [width]);
+
   return (
-    <ul className="nav-main">
-      {menuItems?.map((link, index) => (
-        <li key={index}>
-          <Link href={link.href}>
-            <Image
-              className="icon-nav"
-              src={link.iconSrc}
-              alt="home"
-              width={20}
-              height={20}
-            ></Image>
-            {link.text}
-          </Link>
-        </li>
-      ))}
-      {session && (
-        <button
-          className="w-full text-center text-white text-3xl bg-[#1db954] rounded-lg p-6 hover:bg-[#1ed760] hover:scale-105 transition-all"
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
+    <>
+      {open && (
+      <ul className="nav-main">
+        {menuItems?.map((link, index) => (
+          <li key={index}>
+            <Link href={link.href}>
+              <Image
+                className="icon-nav"
+                src={link.iconSrc}
+                alt="home"
+                width={20}
+                height={20}
+              ></Image>
+              {link.text}
+            </Link>
+          </li>
+        ))}
+        {session && (
+          <button className="btn-primary" onClick={handleLogout}>
+            Logout
+          </button>
+        )}
+      </ul>
       )}
-    </ul>
+    </>
   );
 }

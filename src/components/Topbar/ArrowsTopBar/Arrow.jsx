@@ -1,23 +1,19 @@
+"use client";
 import "@/styles/styles.css";
 import next from '../../../../public/assets/next-arrow.svg'
 import prev from "../../../../public/assets/back-arrow.svg";
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Arrow() {
-
-  const [nextSong, setNext] = useState(1)
-
-  function handerNext() {
-    setNext(nextSong + 1);
-  }
+  const router = useRouter();
 
   return (
     <div className="container-arrows">
-      <button className="container-arrow-left" onClick={handerNext}>
+      <button className="container-arrow-left" onClick={() => router.back()}>
         <Image src={prev} alt="prev arrow" width={20} height={20}></Image>
       </button>
-      <button className="container-arrow-right" onClick={(event)=> handerNext - 1}>
+      <button className="container-arrow-right" onClick={() => router.next()}>
         <Image src={next} alt="next arrow" width={20} height={20}></Image>
       </button>
     </div>

@@ -1,9 +1,6 @@
-import { spotifyUrls } from "./urls";
-
-export default async function getRecomendations() {
-  const URL = spotifyUrls.spotify.recomendations; // URL to fetch recomendations
+export default async function getRecommendations() {
+  const URL = `${process.env.SPOTIFY_BASE_URL_ALL}`;
   const OPTIONS = {
-    // Options to fetch recomendations
     method: "GET",
     headers: {
       "x-rapidapi-key": `${process.env.SPOTIFY_API_KEY}`,
@@ -13,15 +10,34 @@ export default async function getRecomendations() {
 
   try {
     const response = await fetch(URL, OPTIONS);
-    if (response.ok) {
-      const { data } = await response.json();
-      return data || null;
-    } else {
-      console.error("Failed to fetch songs: Response not ok");
-      return null;
+    if (!response.ok) {
+      throw new Error("Error al obtener datos");
     }
+    const data = await response.json();
+
+    const browseData =
+      data?.data?.browseStart?.sections?.items[0]?.sectionItems?.items || [];
+
+    const simplifiedData = browseData
+      .map((item) => {
+        const content = item.content?.data?.data?.cardRepresentation;
+        if (!content) return null;
+
+        return {
+          title: content.title?.transformedLabel || "",
+          imageUrl: content.artwork?.sources?.[0]?.url || "",
+          backgroundColor: content.backgroundColor?.hex || "",
+          uri: item.uri || "",
+        };
+      })
+      .filter(Boolean);
+
+    return {
+      categories: simplifiedData,
+      totalCount: simplifiedData.length,
+    };
   } catch (error) {
-    console.error("Error al obtener datos:", error);
-    return null;
+    console.error("Error in getRecommendations:", error);
+    return { error: error.message };
   }
 }
