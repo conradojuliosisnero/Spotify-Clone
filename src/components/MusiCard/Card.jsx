@@ -4,7 +4,7 @@ import { useState } from "react";
 import ButtonPlay from "./ButtonPlay";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function MusicCard({ children, styles, albumId }) {
+export default function MusicCard({ children, styles, albumId ,uri}) {
   const [buttonHover, setButtonHover] = useState(false);
 
   const handlerButton = () => {
@@ -54,7 +54,7 @@ export default function MusicCard({ children, styles, albumId }) {
               variants={animateButton}
               transition={{ duration: 0.2 }}
             >
-              <ButtonPlay isHovered={buttonHover} albumID={albumId} />
+              <ButtonPlay isHovered={buttonHover} albumID={albumId}/>
             </motion.div>
           )}
         </AnimatePresence>

@@ -20,7 +20,8 @@ export default function TopBar() {
       const mainContent = document.querySelector(".main-content");
 
       if (mainContent) {
-        mainContent.style.backgroundImage = `linear-gradient(to bottom, #${color1},rgba(0, 0, 0,0.2), rgba(0, 0, 0))`;
+        mainContent.style.transition = "background 0.5s ease-in-out";
+        mainContent.style.background = `#${color1}`;
       } else {
         console.log("Elemento no encontrado");
       }

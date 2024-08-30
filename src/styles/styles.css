@@ -28,9 +28,9 @@ html {
   padding: 1rem 2rem;
   background-color: #000000;
   backdrop-filter: blur(7px);
+  z-index: 700;
 
   position: fixed;
-  z-index: 30;
   right: 0;
   top: 0;
 }
@@ -332,8 +332,11 @@ html {
 
   display: flex;
   flex-direction: column;
+  position: relative;
+  /* overflow: hidden; */
   gap: 3rem;
   border-radius: 1.2rem;
+  z-index: 100;
 }
 
 .container-title {

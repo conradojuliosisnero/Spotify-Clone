@@ -10,6 +10,7 @@ import ArtistCard from "../ArtistCard/ArtistCard";
 import LinkComponent from "../UI/Link/Link";
 import Section from "../Section/Section";
 import arroowDown from "../../../public/assets/down-arrow.svg";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const [recommendations, setRecommendations] = useState(null);
@@ -75,72 +76,96 @@ export default function Home() {
     });
   };
 
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  };
+
   return (
-    <>
-      <div className="w-full flex">
-        {filters.map((filter) => (
-          <LinkComponent
-            href={`/home`}
-            key={filter.id}
-            click={() => handlerClick(filter.id)}
-            isActive={activeFilter === filter.id} // Pass active status
-          >
-            {filter.name}
-          </LinkComponent>
-        ))}
-      </div>
-      <Container name="Recomendaciones">
-        {recommendations && recommendations.categories ? (
-          recommendations.categories
-            .slice(0, showMoreResults)
-            .map((category, index) => (
-              <MusicCard
-                key={index}
-                styles={category.backgroundColor}
-                albumId={category.uri}
-              >
-                <div className="card-img">
-                  <Image
-                    src={category.imageUrl || defaultImage}
-                    alt={category.title || "Album cover"}
-                    width={100}
-                    height={100}
-                    quality={60}
-                  />
-                </div>
-                <h2 className="trunk-text">{category.title}</h2>
-              </MusicCard>
-            ))
-        ) : (
-          <div className="text-7xl font-bold w-full justify-center items-center">
-            No recommendations found :(
-          </div>
-        )}
-      </Container>
-      <div className="w-full flex justify-center items-center font-bold text-2xl text-white cursor-pointer">
-        <Image
-          src={arroowDown}
-          alt="arrow"
-          width={35}
-          height={35}
-          className="cursor-pointer"
-          onClick={showMore}
-        />
-      </div>
-      <Section name="Artistas">
-        <ArtistCard>
+      <div>
+        <div className="w-full flex sticky top-0">
+          {filters.map((filter) => (
+            <LinkComponent
+              href={`/home`}
+              key={filter.id}
+              click={() => handlerClick(filter.id)}
+              isActive={activeFilter === filter.id} // Pass active status
+            >
+              {filter.name}
+            </LinkComponent>
+          ))}
+        </div>
+        <motion.div variants={container} initial="hidden" animate="visible">
+          <Container name="Recomendaciones">
+            {recommendations && recommendations.categories ? (
+              recommendations.categories
+                .slice(0, showMoreResults)
+                .map((category, index) => (
+                  <motion.div variants={item}>
+                    <MusicCard
+                      key={index}
+                      styles={category.backgroundColor}
+                      albumId={category.uri}
+                    >
+                      <div className="card-img">
+                        <Image
+                          src={category.imageUrl || defaultImage}
+                          alt={category.title || "Album cover"}
+                          width={100}
+                          height={100}
+                          quality={60}
+                        />
+                      </div>
+                      <h2 className="trunk-text">{category.title}</h2>
+                    </MusicCard>
+                  </motion.div>
+                ))
+            ) : (
+              <div className="text-7xl font-bold w-full justify-center items-center">
+                No recommendations found :(
+              </div>
+            )}
+          </Container>
+        </motion.div>
+        <div className="w-full flex justify-center items-center font-bold text-2xl text-white cursor-pointer">
           <Image
-            src={defaultImage}
-            width={100}
-            height={100}
-            alt="Artist image"
-            className="rounded-3xl"
+            src={arroowDown}
+            alt="arrow"
+            width={35}
+            height={35}
+            className="cursor-pointer"
+            onClick={showMore}
           />
-          <div>
-            <p>Artist</p>
-          </div>
-        </ArtistCard>
-      </Section>
-    </>
+        </div>
+        <Section name="Artistas">
+          <ArtistCard>
+            <Image
+              src={defaultImage}
+              width={100}
+              height={100}
+              alt="Artist image"
+              className="rounded-3xl"
+            />
+            <div>
+              <p>Artist</p>
+            </div>
+          </ArtistCard>
+        </Section>
+      </div>
   );
 }

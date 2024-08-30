@@ -28,6 +28,7 @@ export default function Search() {
     try {
       const response = await fetch(`/api/search?q=${searchValue}`);
       const data = await response.json();
+      console.log(data);
       dispatch(setResults(data));
       setIsLoading(false);
     } catch (error) {
