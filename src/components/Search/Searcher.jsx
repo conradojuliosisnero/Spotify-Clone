@@ -7,6 +7,7 @@ import getSearchTracks from "@/services/search";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setResults } from "@/store/slices/searchSlice";
+import { useRouter } from "next/navigation";
 
 export default function Search() {
   // States
@@ -15,8 +16,11 @@ export default function Search() {
 
   const dispatch = useDispatch();
 
+  const router = useRouter()
+
   const handleSearchClick = async (e) => {
     e.preventDefault();
+    router.push(`/search?q=${searchValue}`)
     setIsLoading(true);
     if (searchValue.trim() === "") {
       setSearchValue(searchValue);
@@ -47,14 +51,15 @@ export default function Search() {
       <div className="input-search">
         {/* Search icon  */}
         <div className="icon-search">
-          <Image src={search} width={20} height={20} alt="search icon"></Image>
+          <Image src={search} width={26} height={26} alt="search icon"></Image>
         </div>
 
         {/* Input search  */}
         <input
-          className="input"
+          className="input text-xl placeholder:text-xl placeholder:text-white"
           type="text"
           value={searchValue}
+          placeholder="Que quieres reproducir?"
           onChange={handleSearchInputChange}
         />
         {/* Clear Input  Icon  */}

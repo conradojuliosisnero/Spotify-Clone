@@ -6,7 +6,7 @@ import Image from "next/image";
 import defaultImage from "../../../public/img/image.svg";
 import { useState, useEffect } from "react";
 import Error from "../Error/Error";
-import SkeletonCard from "@/components/Squeleton/Card";
+import BaseSkeletonCard from "@/components/Squeleton/BaseSkeleton";
 
 const Albums = () => {
   const [albums, setAlbums] = useState([]);
@@ -31,7 +31,7 @@ const Albums = () => {
   }, []);
 
     if (isLoading) {
-      return <SkeletonCard />;
+      return <BaseSkeletonCard />;
     }
 
     if (error) {

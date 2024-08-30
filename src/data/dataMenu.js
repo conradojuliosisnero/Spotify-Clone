@@ -11,11 +11,6 @@ const menuItems = [
     text: "Inicio",
   },
   {
-    href: "/search",
-    iconSrc: search,
-    text: "Buscar",
-  },
-  {
     href: "/albums",
     iconSrc: library,
     text: "Albums",

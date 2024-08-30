@@ -20,7 +20,7 @@ export default function TopBar() {
       const mainContent = document.querySelector(".main-content");
 
       if (mainContent) {
-        mainContent.style.backgroundImage = `linear-gradient(to bottom, #${color1}, rgba(0, 0, 0, 0.5)`;
+        mainContent.style.backgroundImage = `linear-gradient(to bottom, #${color1},rgba(0, 0, 0,0.2), rgba(0, 0, 0))`;
       } else {
         console.log("Elemento no encontrado");
       }
@@ -33,8 +33,8 @@ export default function TopBar() {
   return (
     <div className={`topbar`}>
       {/* flechas  */}
-      <Arrow />
-      {route == "/search" ? <Search /> : ""}
+      {/* <Arrow /> */}
+      <Search /> 
       {/* Avatar */}
         <AvatarUser />
     </div>
