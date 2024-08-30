@@ -3,8 +3,7 @@ import playIcon from "../../../public/img/play.svg";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ButtonPlay({ isHovered, albumID }) {
-
+export default function ButtonPlay({ albumID }) {
   // Function to extract id from albumID
   function albumIdExtraction(id) {
     if (id) {
@@ -16,16 +15,12 @@ export default function ButtonPlay({ isHovered, albumID }) {
   }
   // save id in a variable
   const IdExtraction = albumIdExtraction(albumID);
-  
+
   return (
-    <div
-      className={`button-play w-[48px] h-[48px] flex bg-green-500 rounded-full 
-        justify-center items-center absolute bottom-1/3 right-5 hover:scale-110
-        ${isHovered ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
-    >
-      <Link href={`${albumID}`}> 
+    <Link href={`${albumID}`} className="block">
+      <div className="w-[50px] h-[50px] bg-green-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-200">
         <Image src={playIcon} alt="icon-play" width={20} height={20} />
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }

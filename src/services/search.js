@@ -1,5 +1,5 @@
 export default async function getSearchTracks(query) {
-  const URL = `${process.env.SPOTIFY_BASE_URL}?q=${query}&type=multi&offset=0&limit=10&numberOfTopResults=5`;
+  const URL = `${process.env.SPOTIFY_SEARCH_BASE_URL}?q=${query}&type=multi&offset=0&limit=10&numberOfTopResults=5`;
   const OPTIONS = {
     method: "GET",
     headers: {

@@ -16,11 +16,12 @@ export default function TopBar() {
 
     const applyRandomGradient = () => {
       const color1 = generateRandomColor();
-      const color2 = generateRandomColor();
+      // const color2 = generateRandomColor();
       const mainContent = document.querySelector(".main-content");
 
       if (mainContent) {
-        mainContent.style.backgroundImage = `linear-gradient(to bottom, #${color1}, #${color2})`;
+        mainContent.style.transition = "background 0.5s ease-in-out";
+        mainContent.style.background = `#${color1}`;
       } else {
         console.log("Elemento no encontrado");
       }
@@ -33,8 +34,8 @@ export default function TopBar() {
   return (
     <div className={`topbar`}>
       {/* flechas  */}
-      <Arrow />
-      {route == "/search" ? <Search /> : ""}
+      {/* <Arrow /> */}
+      <Search /> 
       {/* Avatar */}
         <AvatarUser />
     </div>

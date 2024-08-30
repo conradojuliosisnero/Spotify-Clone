@@ -56,11 +56,11 @@ export default function Nav() {
             </Link>
           </li>
         ))}
-        {session && (
+        {/* {session && (
           <button className="btn-primary" onClick={handleLogout}>
             Logout
           </button>
-        )}
+        )} */}
       </ul>
       )}
     </>
