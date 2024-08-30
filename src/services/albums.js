@@ -1,5 +1,5 @@
-export default async function getAlbums() {
-  const URL = `${process.env.SPOTIFY_API_URL}/albums`;
+export default async function getAlbums(artistId, offset = 0, limit = 20) {
+  const URL = `${process.env.SPOTIFY_BASE_URL}/album_tracks/?id=${artistId}&offset=${offset}&limit=${limit}`;
   const OPTIONS = {
     method: "GET",
     headers: {
@@ -10,12 +10,14 @@ export default async function getAlbums() {
 
   try {
     const response = await fetch(URL, OPTIONS);
-    if (!response) {
+    if (!response.ok) {
       throw new Error("Failed to fetch albums");
     }
-    return response;
+    const data = await response.json();
+    console.log(data);
+    return data;
   } catch (error) {
     console.error("Error fetching albums:", error);
-    return <Error />;
+    return error;
   }
 }

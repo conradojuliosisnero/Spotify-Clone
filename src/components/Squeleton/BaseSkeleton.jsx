@@ -1,16 +1,14 @@
 import styles from "@/styles/skeleton.module.css";
+import SkeletonComponent from "./SkeletonComponent";
 
-export default function SkeletonCard() {
+export default function BaseSkeletonCard() {
 
   const arrayExampleCards = [1,2,3,4,5,6,7,8]
 
   return (
     <div className={styles.skeletonContainer}>
       {arrayExampleCards.map((items,index) => (
-        <div className={styles.skeletonItem} key={index}>
-          <div className={styles.skeletonImage}></div>
-          <div className={styles.skeletonText}></div>
-      </div>
+        <SkeletonComponent key={index}/>
       ))}
     </div>
   );

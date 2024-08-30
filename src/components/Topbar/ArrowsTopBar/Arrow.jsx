@@ -10,10 +10,10 @@ export default function Arrow() {
 
   return (
     <div className="container-arrows">
-      <button className="container-arrow-left" onClick={() => router.back()}>
+      <button className="container-arrow-left" >
         <Image src={prev} alt="prev arrow" width={20} height={20}></Image>
       </button>
-      <button className="container-arrow-right" onClick={() => router.next()}>
+      <button className="container-arrow-right" >
         <Image src={next} alt="next arrow" width={20} height={20}></Image>
       </button>
     </div>
