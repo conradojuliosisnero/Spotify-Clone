@@ -333,6 +333,7 @@ html {
 }
 
 .container-title {
+  position: relative;
   font-size: 2.4rem;
   color: #fff;
   cursor: pointer;
@@ -345,6 +346,7 @@ html {
 
 .container-name {
   display: flex;
+  position: relative;
   flex-direction: column;
   gap: 2rem;
   margin-bottom: 2rem;

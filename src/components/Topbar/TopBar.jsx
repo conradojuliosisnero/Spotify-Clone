@@ -16,11 +16,11 @@ export default function TopBar() {
 
     const applyRandomGradient = () => {
       const color1 = generateRandomColor();
-      const color2 = generateRandomColor();
+      // const color2 = generateRandomColor();
       const mainContent = document.querySelector(".main-content");
 
       if (mainContent) {
-        mainContent.style.backgroundImage = `linear-gradient(to bottom, #${color1}, #${color2})`;
+        mainContent.style.backgroundImage = `linear-gradient(to bottom, #${color1}, rgba(0, 0, 0, 0.5)`;
       } else {
         console.log("Elemento no encontrado");
       }

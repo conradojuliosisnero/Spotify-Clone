@@ -19,7 +19,7 @@ export default function MusicCard({ children, styles, albumId }) {
 
   return (
     <div
-      style={{ backgroundColor: styles }}
+      style={{ background: `linear-gradient(180deg,${styles} 0%, rgba(0, 0, 0, 0.5) 100%)` }}
       className="contend-card relative"
       onMouseEnter={handlerButton}
       onMouseLeave={handlerButtonDisHover}

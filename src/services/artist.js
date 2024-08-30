@@ -1,8 +1,5 @@
-import { spotifyUrls } from "./urls";
-
-export default async function getArtist() {
-
-  const url = `${spotifyUrls.spotify.artists}`;
+export default async function getArtist(query) {
+  const url = `${process.env.SPOTIFY_BASE_URL_ARTIST}?ids=${query}`;
   const options = {
     method: "GET",
     headers: {
@@ -17,9 +14,20 @@ export default async function getArtist() {
       throw new Error("Failed to fetch artist data");
     }
     const data = await response.json();
-    return data;
+
+    // Procesar y simplificar los datos del artista
+    const processedData = data.artists.map((artist) => ({
+      id: artist.id,
+      name: artist.name,
+      genres: artist.genres,
+      followers: artist.followers.total,
+      popularity: artist.popularity,
+      imageUrl: artist.images[0]?.url || null, // Usa la imagen de mayor resolución si está disponible
+      spotifyUrl: artist.external_urls.spotify,
+    }));
+
+    return processedData[0];
   } catch (error) {
-    console.error(error);
-    throw error;
+    return error;
   }
 }

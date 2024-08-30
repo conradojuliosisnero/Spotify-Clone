@@ -6,6 +6,7 @@ import Image from "next/image";
 import defaultImage from "../../../public/img/image.svg";
 import Error from "../Error/Error";
 import SkeletonCard from "../Squeleton/Card";
+import ArtistCard from "../ArtistCard/ArtistCard";
 
 export default function Home() {
   const [recommendations, setRecommendations] = useState(null);
@@ -42,7 +43,7 @@ export default function Home() {
     <>
       <Container name="Recomendaciones">
         {recommendations && recommendations.categories ? (
-          recommendations.categories.slice(0, 45).map((category, index) => (
+          recommendations.categories.slice(0, 10).map((category, index) => (
             <MusicCard
               key={index}
               styles={category.backgroundColor}
@@ -66,6 +67,14 @@ export default function Home() {
           </div>
         )}
       </Container>
+      <div className="w-full flex main-container">
+        <ArtistCard>
+          <Image src={defaultImage} width={100} height={100} alt="Artist image" className="rounded-3xl"/>
+          <div>
+            <p>Artist</p>
+          </div>
+        </ArtistCard>
+      </div>
     </>
   );
 }

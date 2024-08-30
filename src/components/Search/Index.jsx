@@ -4,9 +4,11 @@ import Image from "next/image";
 import MusicCard from "../MusiCard/Card";
 import { useSelector } from "react-redux";
 import Error from "../Error/Error";
+import { useEffect } from "react";
 
 export default function Search() {
   const music = useSelector((state) => state.search.results);
+
 
   return (
     <Container name="Buscar">
@@ -31,6 +33,9 @@ export default function Search() {
       ) : (
         <Error>{"Error al obtener datos"}</Error>
       )}
+
+      {/* <MusicCard /> */}
+
     </Container>
   );
 }
