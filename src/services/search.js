@@ -6,6 +6,7 @@ export default async function getSearchTracks(query) {
       "x-rapidapi-key": `${process.env.SPOTIFY_API_KEY}`,
       "x-rapidapi-host": "spotify23.p.rapidapi.com",
     },
+    cache: "no-store",
   };
 
   try {
