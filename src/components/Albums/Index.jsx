@@ -11,14 +11,13 @@ import BaseSkeletonCard from "@/components/Squeleton/BaseSkeleton";
 const Albums = () => {
   const [albums, setAlbums] = useState([]);
   const [isLoading, setIsLoading] = useState(null);
-  const [error, setError] = useState(true);
+  const [error, setError] = useState(null);
 
-  console.log(albums);
   useEffect(() => {
     const fetchAlbums = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("/api/albums");
+        const response = await fetch("/api/search?q=albums");
         const data = await response.json();
         setAlbums(data);
         setIsLoading(false);
@@ -31,32 +30,31 @@ const Albums = () => {
     fetchAlbums();
   }, []);
 
-    if (isLoading) {
-      return <BaseSkeletonCard />;
-    }
+  if (isLoading) {
+    return <BaseSkeletonCard />;
+  }
 
-    if (error) {
-      return <Error>Error al obtener datos</Error>;
-    }
+  if (error) {
+    return <Error>Error al obtener datos</Error>;
+  }
 
   return (
     <Container name="Albums">
-        <MusicCard
-          // key={index}
-          styles={""}
-          // albumId={category.uri}
-        >
+      {albums.albums?.map((album, index) => (
+        <MusicCard key={index} albumId={album.uri}>
           <div className="card-img">
             <Image
-              src={defaultImage}
+              src={album.coverArt || defaultImage}
               alt={"Album cover"}
               width={100}
               height={100}
               quality={60}
             />
           </div>
-          <h2 className="trunk-text">title</h2>
+          <h2 className="trunk-text">{album.name}</h2>
+          <span>{album.year}</span>
         </MusicCard>
+      ))}
     </Container>
   );
 };

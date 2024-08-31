@@ -1,15 +1,19 @@
 "use client";
 import "../Home/styles.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonPlay from "./ButtonPlay";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 export default function MusicCard({ children, styles, albumId }) {
   const [buttonHover, setButtonHover] = useState(false);
+  const [sanitAlbumId, setSanitAlbumId] = useState("");
 
-  const sanitAlbumId = albumId.split(":")[2];
-
+  useEffect(() => {
+    if (albumId) {
+      setSanitAlbumId(albumId?.split(":")[2]);
+    }
+  }, [albumId]);
 
   const handlerButton = () => {
     setButtonHover(true);
