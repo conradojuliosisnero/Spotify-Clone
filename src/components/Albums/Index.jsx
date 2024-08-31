@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import Error from "../Error/Error";
 import BaseSkeletonCard from "@/components/Squeleton/BaseSkeleton";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const Albums = () => {
   const [albums, setAlbums] = useState([]);
@@ -64,7 +65,7 @@ const Albums = () => {
       <Container name="Albums">
         {albums.albums?.map((album, index) => (
           <motion.div variants={item} key={index}>
-            <MusicCard key={index} albumId={album.uri}>
+            <MusicCard key={index}>
               <div className="card-img">
                 <Image
                   src={album.coverArt || defaultImage}
@@ -74,7 +75,9 @@ const Albums = () => {
                   quality={60}
                 />
               </div>
-              <h2 className="trunk-text">{album.name}</h2>
+              <h2 className="trunk-text hover:underline">
+                <Link href={`/album/${album.uri}`}>{album.name}</Link>
+              </h2>
               <span>{album.year}</span>
             </MusicCard>
           </motion.div>

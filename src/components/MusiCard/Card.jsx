@@ -9,12 +9,6 @@ export default function MusicCard({ children, styles, albumId }) {
   const [buttonHover, setButtonHover] = useState(false);
   const [sanitAlbumId, setSanitAlbumId] = useState("");
 
-  useEffect(() => {
-    if (albumId) {
-      setSanitAlbumId(albumId?.split(":")[2]);
-    }
-  }, [albumId]);
-
   const handlerButton = () => {
     setButtonHover(true);
   };
@@ -49,7 +43,6 @@ export default function MusicCard({ children, styles, albumId }) {
 
   return (
     <div
-      onClick={handleClick}
       style={{
         background: `linear-gradient(180deg,${styles} 0%, rgba(0, 0, 0, 0.5) 100%)`,
       }}
