@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Container from "@/components/Contained/Contained";
 import Image from "next/image";
 import MusicCard from "../MusiCard/Card";
@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import RecomendedCard from "@/components/UI/RecomendedCard/Card";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Search() {
   const [recomended, setRecomended] = useState(null);
@@ -19,40 +20,41 @@ export default function Search() {
         setRecomended(data);
       } catch (error) {
         console.log(error);
-      } finally {
-        console.log("recomended");
       }
     };
 
     searchRecomended();
   }, []);
 
-    const container = {
-      hidden: { opacity: 1, scale: 0 },
-      visible: {
-        opacity: 1,
-        scale: 1,
-        transition: {
-          delayChildren: 0.3,
-          staggerChildren: 0.2,
-        },
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
       },
-    };
+    },
+  };
 
-    const item = {
-      hidden: { y: 20, opacity: 0 },
-      visible: {
-        y: 0,
-        opacity: 1,
-      },
-    };
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  };
+
+  console.log(music);
+  console.log(recomended);
 
   return (
     <motion.div initial="hidden" animate="visible" variants={container}>
       <Container name="Busqueda">
-        {/* <MusicCard /> */}
-        {music
-          ? music.albums?.map(({ name, coverArt, year, uri }, index) => (
+        {/* Mostrar resultados de búsqueda si existen */}
+        {music?.albums?.length > 0
+          ? music.albums.map(({ name, coverArt, year, uri }, index) => (
               <motion.div key={index} variants={item}>
                 <MusicCard key={index} albumId={uri}>
                   <div className="card-img">
@@ -71,26 +73,32 @@ export default function Search() {
                 </MusicCard>
               </motion.div>
             ))
-          : recomended.categories.slice(0, 10).map((category, index) => (
-              <RecomendedCard
-                key={category.id || category.uri}
-                styles={category.backgroundColor}
-                albumId={category.uri}
-              >
-                <div className="card-img">
+          : // Mostrar recomendados solo si no hay resultados de búsqueda
+            recomended?.categories?.slice(0, 10).map((category, index) => (
+              <motion.div key={index} variants={item}>
+                <RecomendedCard
+                  key={category.id || category.uri}
+                  category={category}
+                >
+                  <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                   <Image
-                    src={category.imageUrl ?? defaultImage}
-                    alt={category.title ?? "Album cover"}
+                    src={category.imageUrl || ""}
                     width={100}
+                    quality={70}
                     height={100}
-                    quality={60}
+                    alt="cover-art"
+                    className="absolute -bottom-2 -right-24 w-[170px] h-[170px] object-cover transform rotate-[25deg] shadow-xl"
                   />
-                </div>
-                <h2 className="trunk-text">{category.title ?? "Untitled"}</h2>
-              </RecomendedCard>
+                  <div className="relative z-10 p-4 flex flex-col justify-between h-full">
+                    <p className="text-4xl font-bold text-white leading-tight hover:underline">
+                      <Link href={`/albums/${category.name}`}>
+                        {category.title}
+                      </Link>
+                    </p>
+                  </div>
+                </RecomendedCard>
+              </motion.div>
             ))}
-
-        {/* <MusicCard /> */}
       </Container>
     </motion.div>
   );
