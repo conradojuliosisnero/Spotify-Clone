@@ -13,6 +13,7 @@ const Albums = () => {
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(true);
 
+  console.log(albums);
   useEffect(() => {
     const fetchAlbums = async () => {
       setIsLoading(true);
