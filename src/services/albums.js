@@ -1,5 +1,5 @@
-export default async function getAlbums(artistId, offset = 0, limit = 20) {
-  const URL = `${process.env.SPOTIFY_BASE_URL}/album_tracks/?id=${artistId}&offset=${offset}&limit=${limit}`;
+export default async function getAlbums(albumId, offset = 0, limit = 20) {
+  const URL = `${process.env.SPOTIFY_BASE_URL}/albums/?ids=${albumId}`;
   const OPTIONS = {
     method: "GET",
     headers: {
@@ -17,7 +17,6 @@ export default async function getAlbums(artistId, offset = 0, limit = 20) {
     console.log(data);
     return data;
   } catch (error) {
-    console.error("Error fetching albums:", error);
     return error;
   }
 }

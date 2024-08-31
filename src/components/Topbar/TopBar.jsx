@@ -29,15 +29,15 @@ export default function TopBar() {
 
     // Aplica el degradado al cargar la página
     applyRandomGradient();
-  }, []); 
+  }, []);
 
   return (
     <div className={`topbar`}>
       {/* flechas  */}
       {/* <Arrow /> */}
-      <Search /> 
+      <Search />
       {/* Avatar */}
-        <AvatarUser />
+      <AvatarUser />
     </div>
   );
 }
