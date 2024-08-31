@@ -137,7 +137,6 @@ html {
   flex-direction: column;
   gap: 3rem;
   border-radius: 1.5rem;
-  overflow-y: scroll;
 }
 
 .nav-main li {

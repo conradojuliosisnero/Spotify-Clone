@@ -3,9 +3,13 @@ import "../Home/styles.css";
 import { useState } from "react";
 import ButtonPlay from "./ButtonPlay";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 
-export default function MusicCard({ children, styles, albumId ,uri}) {
+export default function MusicCard({ children, styles, albumId }) {
   const [buttonHover, setButtonHover] = useState(false);
+
+  const sanitAlbumId = albumId.split(":")[2];
+
 
   const handlerButton = () => {
     setButtonHover(true);
@@ -33,8 +37,15 @@ export default function MusicCard({ children, styles, albumId ,uri}) {
     },
   };
 
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/albums/${sanitAlbumId}`);
+  };
+
   return (
     <div
+      onClick={handleClick}
       style={{
         background: `linear-gradient(180deg,${styles} 0%, rgba(0, 0, 0, 0.5) 100%)`,
       }}
@@ -54,7 +65,7 @@ export default function MusicCard({ children, styles, albumId ,uri}) {
               variants={animateButton}
               transition={{ duration: 0.2 }}
             >
-              <ButtonPlay isHovered={buttonHover} albumID={albumId}/>
+              <ButtonPlay isHovered={buttonHover} albumID={albumId} />
             </motion.div>
           )}
         </AnimatePresence>

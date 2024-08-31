@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Play() {
   return (
-    <div className="flex bg-amber-600 w-full">
+    <div className="flex w-full">
       {/* BUTTON  */}
       <Link
         className="w-24 h-24 rounded-full bg-green-500 text-black
@@ -21,9 +21,6 @@ export default function Play() {
       </Link>
 
       <div className="">
-        <span className="">
-          list icon
-        </span>
       </div>
     </div>
   );
