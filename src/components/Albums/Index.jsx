@@ -7,6 +7,7 @@ import defaultImage from "../../../public/img/image.svg";
 import { useState, useEffect } from "react";
 import Error from "../Error/Error";
 import BaseSkeletonCard from "@/components/Squeleton/BaseSkeleton";
+import { motion } from "framer-motion";
 
 const Albums = () => {
   const [albums, setAlbums] = useState([]);
@@ -38,24 +39,48 @@ const Albums = () => {
     return <Error>Error al obtener datos</Error>;
   }
 
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.2,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  };
+
   return (
-    <Container name="Albums">
-      {albums.albums?.map((album, index) => (
-        <MusicCard key={index} albumId={album.uri}>
-          <div className="card-img">
-            <Image
-              src={album.coverArt || defaultImage}
-              alt={"Album cover"}
-              width={100}
-              height={100}
-              quality={60}
-            />
-          </div>
-          <h2 className="trunk-text">{album.name}</h2>
-          <span>{album.year}</span>
-        </MusicCard>
-      ))}
-    </Container>
+    <motion.div variants={container} initial="hidden" animate="visible">
+      <Container name="Albums">
+        {albums.albums?.map((album, index) => (
+          <motion.div variants={item} key={index}>
+            <MusicCard key={index} albumId={album.uri}>
+              <div className="card-img">
+                <Image
+                  src={album.coverArt || defaultImage}
+                  alt={"Album cover"}
+                  width={100}
+                  height={100}
+                  quality={60}
+                />
+              </div>
+              <h2 className="trunk-text">{album.name}</h2>
+              <span>{album.year}</span>
+            </MusicCard>
+          </motion.div>
+        ))}
+      </Container>
+    </motion.div>
   );
 };
 

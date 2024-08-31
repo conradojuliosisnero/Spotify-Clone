@@ -6,6 +6,7 @@ import defaultImage from "../../../public/img/image.svg";
 import { useState, useEffect } from "react";
 import Error from "../Error/Error";
 import BaseSkeletonCard from "@/components/Squeleton/BaseSkeleton";
+import { motion } from "framer-motion";
 
 export default  function Playlist (){
   const [playList, setPlayList] = useState([]);
@@ -16,7 +17,7 @@ export default  function Playlist (){
     const getPlayList = async () => {
       setLoading(true);
       try {
-        const response = await fetch("/api/search?q=artists");
+        const response = await fetch("/api/search?q=playlist");
         const data = await response.json();
         setPlayList(data);
         setLoading(false);
@@ -36,26 +37,49 @@ export default  function Playlist (){
       return <Error>Error al obtener datos</Error>;
     }
 
+    const container = {
+      hidden: { opacity: 1, scale: 0 },
+      visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+          delayChildren: 0.2,
+          staggerChildren: 0.1,
+        },
+      },
+    };
+
+    const item = {
+      hidden: { y: 20, opacity: 0 },
+      visible: {
+        y: 0,
+        opacity: 1,
+      },
+    };
 
   return (
-    <Container name="Play List">
-      {playList?.albums?.map((artist, index) => (
-        <MusicCard key={index} albumId={artist.uri}>
-          <div className="card-img">
-            <Image
-              src={artist.coverArt || defaultImage}
-              alt={"artist cover"}
-              width={100}
-              height={100}
-              quality={60}
-            />
-          </div>
-          <h2 className="trunk-text">{artist.name}</h2>
-          <span className="text-white">{artist.artistName}</span>
-          <span className="text-white">{artist.year}</span>
-        </MusicCard>
-      ))}
-    </Container>
+    <motion.div variants={container} initial="hidden" animate="visible">
+      <Container name="Play List">
+        {playList?.albums?.map((artist, index) => (
+          <motion.div key={index} variants={item}>
+            <MusicCard key={index} albumId={artist.uri}>
+              <div className="card-img">
+                <Image
+                  src={artist.coverArt || defaultImage}
+                  alt={"artist cover"}
+                  width={100}
+                  height={100}
+                  quality={60}
+                />
+              </div>
+              <h2 className="trunk-text">{artist.name}</h2>
+              <span className="text-white">{artist.artistName}</span>
+              <span className="text-white">{artist.year}</span>
+            </MusicCard>
+          </motion.div>
+        ))}
+      </Container>
+    </motion.div>
   );
 };
 
