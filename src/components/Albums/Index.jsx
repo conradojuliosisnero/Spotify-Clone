@@ -7,18 +7,19 @@ import defaultImage from "../../../public/img/image.svg";
 import { useState, useEffect } from "react";
 import Error from "../Error/Error";
 import BaseSkeletonCard from "@/components/Squeleton/BaseSkeleton";
+import { motion } from "framer-motion";
+import Link from "next/link";
 
 const Albums = () => {
   const [albums, setAlbums] = useState([]);
   const [isLoading, setIsLoading] = useState(null);
-  const [error, setError] = useState(true);
+  const [error, setError] = useState(null);
 
-  console.log(albums);
   useEffect(() => {
     const fetchAlbums = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("/api/albums");
+        const response = await fetch("/api/search?q=albums");
         const data = await response.json();
         setAlbums(data);
         setIsLoading(false);
@@ -31,33 +32,58 @@ const Albums = () => {
     fetchAlbums();
   }, []);
 
-    if (isLoading) {
-      return <BaseSkeletonCard />;
-    }
+  if (isLoading) {
+    return <BaseSkeletonCard />;
+  }
 
-    if (error) {
-      return <Error>Error al obtener datos</Error>;
-    }
+  if (error) {
+    return <Error>Error al obtener datos</Error>;
+  }
+
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.2,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  };
 
   return (
-    <Container name="Albums">
-        <MusicCard
-          // key={index}
-          styles={""}
-          // albumId={category.uri}
-        >
-          <div className="card-img">
-            <Image
-              src={defaultImage}
-              alt={"Album cover"}
-              width={100}
-              height={100}
-              quality={60}
-            />
-          </div>
-          <h2 className="trunk-text">title</h2>
-        </MusicCard>
-    </Container>
+    <motion.div variants={container} initial="hidden" animate="visible">
+      <Container name="Albums">
+        {albums.albums?.map((album, index) => (
+          <motion.div variants={item} key={index}>
+            <MusicCard key={index}>
+              <div className="card-img">
+                <Image
+                  src={album.coverArt || defaultImage}
+                  alt={"Album cover"}
+                  width={100}
+                  height={100}
+                  quality={60}
+                />
+              </div>
+              <h2 className="trunk-text hover:underline">
+                <Link href={`/album/${album.uri}`}>{album.name}</Link>
+              </h2>
+              <span>{album.year}</span>
+            </MusicCard>
+          </motion.div>
+        ))}
+      </Container>
+    </motion.div>
   );
 };
 
