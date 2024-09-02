@@ -6,18 +6,16 @@ import Image from "next/image";
 import defaultImage from "../../../public/img/image.svg";
 import Error from "../Error/Error";
 import BaseSkeletonCard from "../Squeleton/BaseSkeleton";
-import ArtistCard from "../ArtistCard/ArtistCard";
 import LinkComponent from "../UI/Link/Link";
-import Section from "../Section/Section";
 import arroowDown from "../../../public/assets/down-arrow.svg";
 import { motion } from "framer-motion";
 
 export default function Home() {
   const [recommendations, setRecommendations] = useState(null);
-  const [showMoreResults, setShowMoreResults] = useState(10); // Default value
+  const [showMoreResults, setShowMoreResults] = useState(10); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeFilter, setActiveFilter] = useState("todo"); // Default filter
+  const [activeFilter, setActiveFilter] = useState("todo"); 
 
   useEffect(() => {
     // Load showMoreResults from localStorage only on the client side
