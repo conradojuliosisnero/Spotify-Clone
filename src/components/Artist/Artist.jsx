@@ -6,6 +6,9 @@ import Error from "../Error/Error";
 import BaseSkeletonCard from "../Squeleton/BaseSkeleton";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import ArtistCard from "../ArtistCard/ArtistCard";
+import defaultImage from "../../../public/img/image.svg";
+import Link from "next/link";
 
 export default function Artist() {
   const [artists, setArtists] = useState([]);
@@ -57,26 +60,34 @@ export default function Artist() {
     },
   };
 
-  console.log(artists);
   return (
     <motion.div initial="hidden" animate="visible" variants={container}>
       <Container name="Artist">
         {artists?.albums?.map((artist, index) => (
           <motion.div key={index} variants={item}>
-            <MusicCard key={index} albumId={artist.uri}>
-              <div className="card-img">
+            <ArtistCard key={index} albumId={artist.uri}>
+              <div>
                 <Image
                   src={artist.coverArt || defaultImage}
                   alt={"artist cover"}
-                  width={100}
-                  height={100}
+                  width={160}
+                  height={160}
                   quality={60}
+                  className="rounded-full"
                 />
               </div>
-              <h2 className="trunk-text">{artist.name}</h2>
-              <span className="text-white">{artist.artistName}</span>
-              <span className="text-white">{artist.year}</span>
-            </MusicCard>
+              <div className="flex flex-col items-start w-full">
+                <h2 className="trunk-text font-bold text-2xl">
+                  <Link
+                    href={`/artist/${artist.uri}`}
+                    className="text-white hover:underline"
+                  >
+                    {artist.artistName}
+                  </Link>
+                </h2>
+                <span className="text-white">Artist</span>
+              </div>
+            </ArtistCard>
           </motion.div>
         ))}
       </Container>
