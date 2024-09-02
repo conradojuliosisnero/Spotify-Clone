@@ -4,7 +4,7 @@ import Image from "next/image";
 import ERROR from "../../public/img/error.png";
 import { useRouter } from "next/navigation";
 
-export default function GlobalError() {
+export default function NotFound() {
   const router = useRouter();
 
   function redirectHome() {
@@ -12,26 +12,27 @@ export default function GlobalError() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-around h-screen">
-      <div className="flex justify-center items-center">
-        <Image src={ERROR} width={150} height={150} alt="error-image"></Image>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-4">
+      <div className="mb-8">
+        <Image
+          src={ERROR}
+          width={200}
+          height={200}
+          alt="error-image"
+          className="animate-pulse"
+        />
       </div>
-      <span className="text-4xl text-center font-bold">
-        {" "}
-        not found :c{" "}
-      </span>
-
+      <h1 className="text-5xl font-bold mb-4 text-center">Page Not Found</h1>
+      <p className="text-xl text-gray-400 mb-8 text-center">
+        Oops! The track you're looking for seems to have skipped.
+      </p>
       <button
-        className="mt-10 w-fit px-6 py-3 rounded-lg border-2 border-white
-        hover:text-black hover:bg-white
-        transition-all
-        "
+        className="px-8 py-3 rounded-full bg-green-500 hover:bg-green-600 text-white font-semibold transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50"
         onClick={redirectHome}
         name="redirectButton"
       >
-        Come back
+        Go Back
       </button>
     </div>
   );
 }
-

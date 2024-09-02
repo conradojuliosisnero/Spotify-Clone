@@ -112,7 +112,7 @@ a {
 }
 
 .btn-primary {
-  @apply w-full text-center text-white font-semibold text-lg bg-[#1db954] rounded-lg p-3 hover:bg-[#1ed760] hover:scale-105 transition-all
+  @apply w-full text-center text-white font-semibold text-lg bg-[#1db954] rounded-full p-3 hover:bg-[#1ed760] hover:scale-105 transition-all
 }
 
 .btn-secondary {

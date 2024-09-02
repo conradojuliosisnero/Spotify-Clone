@@ -1,7 +1,6 @@
 "use client";
 import Container from "@/components/Contained/Contained";
 import MusicCard from "../MusiCard/Card";
-import { getAlbums } from "@/services/albums";
 import Image from "next/image";
 import defaultImage from "../../../public/img/image.svg";
 import { useState, useEffect } from "react";
@@ -10,7 +9,7 @@ import BaseSkeletonCard from "@/components/Squeleton/BaseSkeleton";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-const Albums = () => {
+export default function Albums (){
   const [albums, setAlbums] = useState([]);
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
@@ -19,7 +18,7 @@ const Albums = () => {
     const fetchAlbums = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("/api/search?q=albums");
+        const response = await fetch("/api/search?q=album");     
         const data = await response.json();
         setAlbums(data);
         setIsLoading(false);
@@ -63,38 +62,34 @@ const Albums = () => {
   return (
     <motion.div variants={container} initial="hidden" animate="visible">
       <Container name="Albums">
-        {albums.albums?.map((album, index) => (
-          <motion.div variants={item} key={index}>
-            <MusicCard key={index}>
-              <div className="card-img">
-                <Image
-                  src={album.coverArt || defaultImage}
-                  alt={"Album cover"}
-                  width={100}
-                  height={100}
-                  quality={60}
-                />
-              </div>
-              <h2 className="trunk-text hover:underline">
-                <Link href={`/album/${album.uri}`}>{album.name}</Link>
-              </h2>
-              <span>{album.year}</span>
-            </MusicCard>
-          </motion.div>
-        ))}
+        {albums.albums ? (
+          albums.albums?.map((album, index) => (
+            <motion.div variants={item} key={index}>
+              <MusicCard key={index}>
+                <div className="card-img">
+                  <Image
+                    src={album.coverArt || defaultImage}
+                    alt={"Album cover"}
+                    width={100}
+                    height={100}
+                    quality={60}
+                  />
+                </div>
+                <h2 className="trunk-text hover:underline">
+                  <Link href={`/album/${album.uri}`}>{album.name}</Link>
+                </h2>
+                <span>{album.year}</span>
+              </MusicCard>
+            </motion.div>
+          ))
+        ) : (
+          <div className="text-7xl font-bold w-full justify-center items-center">
+            No recommendations found :(
+          </div>
+        )}
       </Container>
     </motion.div>
   );
 };
 
-export default Albums;
 
-export async function getStaticProps() {
-  const albums = await getAlbums();
-  console.log(albums);
-  return {
-    props: {
-      albums,
-    },
-  };
-}

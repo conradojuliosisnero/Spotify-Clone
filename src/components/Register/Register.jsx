@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
+import { registerUserWithEmailAndPassword } from "@/firebase/firebaseServices";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -40,9 +41,8 @@ export default function Login() {
   // validate username
   const validateUserName = (username) => {
     if (username !== "") {
-      /* esta expresion regular solo acepta letras y numeros
-      con un maximo de 20 caracteres*/
-      const regex = /^[a-z\sA-Z0-9]{1,20}$/i;
+      /* esta expresion regular valida que sea un correo electronico valido*/
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const isValid = regex.test(username);
       if (!isValid) {
         setValidatedName(false);
@@ -67,28 +67,22 @@ export default function Login() {
   // submit data
   async function handleSubmit(e) {
     e.preventDefault();
-
     if (username === "" && password === "") {
-      setIsError("Rellene los campos para iniciar sesión.");
+      setIsError("Rellene los campos para Registrarse");
       return;
     }
     setIsLoading(true);
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
-      const data = await response.json();
-      if (data.status === "ok") {
-        router.push("/");
-      } else {
-        setIsError("ocurrio un error al iniciar sesión.");
+      const response = await registerUserWithEmailAndPassword(
+        username,
+        password
+      );
+      if (typeof response === "string") {
+        setIsError(response);
       }
+      setIsLoading(false);
     } catch (error) {
-      setIsError(true);
+      setIsError(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -127,7 +121,7 @@ export default function Login() {
               htmlFor="username"
               className="block mb-2 text-sm font-medium text-muted-foreground"
             >
-              Nombre de usuario *
+              Email *
             </label>
             <input
               id="username"
@@ -191,11 +185,7 @@ export default function Login() {
 
           {isError && <p className="text-[#f15252] text-[12px]">{isError}</p>}
 
-          <button
-            type="submit"
-            className="btn-primary"
-            onClick={() => ""}
-          >
+          <button type="submit" className="btn-primary" onClick={() => ""}>
             {isLoading ? "Registrando..." : "Registrarse"}
           </button>
         </form>
