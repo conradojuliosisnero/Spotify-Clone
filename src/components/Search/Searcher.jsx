@@ -19,34 +19,34 @@ export default function Search() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-useEffect(() => {
-  if (searchValue.trim() !== "") {
-    // Despacha la búsqueda actual al reducer
-    dispatch(setRecentSearch(searchValue));
-  }
-}, [dispatch]);
-
-const handleSearchClick = async (e) => {
-  e.preventDefault();
-  router.push(`/search?q=${searchValue}`);
-  setIsLoading(true);
-
-  if (searchValue.trim() !== "") {
-    try {
-      const response = await fetch(`/api/search?q=${searchValue}`);
-      const data = await response.json();
-      dispatch(setResults(data));
-
-      // Despacha la búsqueda reciente
+  useEffect(() => {
+    if (searchValue.trim() !== "") {
+      // Despacha la búsqueda actual al reducer
       dispatch(setRecentSearch(searchValue));
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
     }
-  }
-};
+  }, [dispatch]);
 
+  const handleSearchClick = async (e) => {
+    e.preventDefault();
+    if (searchValue.trim() !== "") {
+      setIsLoading(true);
+      router.push(`/search?q=${searchValue}`);
+      try {
+        const response = await fetch(`/api/search?q=${searchValue}`);
+        const data = await response.json();
+        dispatch(setResults(data));
+
+        // Despacha la búsqueda reciente
+        dispatch(setRecentSearch(searchValue));
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      return;
+    }
+  };
 
   const handleSearchInputChange = (e) => {
     setSearchValue(e.target.value);

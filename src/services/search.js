@@ -1,4 +1,4 @@
-export default async function getSearchTracks(query) {
+export default async function getSearchTracks(query, offset = 0, limit = 20) {
   const URL = `${process.env.SPOTIFY_SEARCH_BASE_URL}?q=${query}&type=multi&offset=0&limit=10&numberOfTopResults=5`;
   const OPTIONS = {
     method: "GET",
@@ -25,7 +25,7 @@ export default async function getSearchTracks(query) {
     };
 
     // Recorre los álbumes
-    data.albums.items.forEach((album) => {
+    data.albums?.items.forEach((album) => {
       simplifiedData.albums.push({
         uri: album.data.uri,
         name: album.data.name,
@@ -38,7 +38,7 @@ export default async function getSearchTracks(query) {
     });
 
     // Recorre los artistas
-    data.artists.items.forEach((artist) => {
+    data.artists?.items.forEach((artist) => {
       simplifiedData.artists.push({
         uri: artist.data.uri,
         name: artist.data.profile.name,
@@ -47,7 +47,7 @@ export default async function getSearchTracks(query) {
     });
 
     // Recorre los episodios
-    data.episodes.items.forEach((episode) => {
+    data.episodes?.items.forEach((episode) => {
       simplifiedData.episodes.push({
         uri: episode.data.uri,
         name: episode.data.name,
@@ -60,7 +60,7 @@ export default async function getSearchTracks(query) {
     });
 
     // Recorre los géneros
-    data.genres.items.forEach((genre) => {
+    data.genres?.items.forEach((genre) => {
       simplifiedData.genres.push({
         uri: genre.data.uri,
         name: genre.data.name,
@@ -69,7 +69,7 @@ export default async function getSearchTracks(query) {
     });
 
     // Recorre las playlists
-    data.playlists.items.forEach((playlist) => {
+    data.playlists?.items.forEach((playlist) => {
       simplifiedData.playlists.push({
         uri: playlist.data.uri,
         name: playlist.data.name,
@@ -80,7 +80,7 @@ export default async function getSearchTracks(query) {
     });
 
     // Recorre los podcasts
-    data.podcasts.items.forEach((podcast) => {
+    data.podcasts?.items.forEach((podcast) => {
       simplifiedData.podcasts.push({
         uri: podcast.data.uri,
         name: podcast.data.name,
@@ -89,6 +89,7 @@ export default async function getSearchTracks(query) {
         publisher: podcast.data.publisher.name,
       });
     });
+    console.log(simplifiedData);
     return simplifiedData;
   } catch (error) {
     console.log(error);

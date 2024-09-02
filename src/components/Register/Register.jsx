@@ -69,7 +69,7 @@ export default function Login() {
     e.preventDefault();
 
     if (username === "" && password === "") {
-      setIsError("Rellene los campos para iniciar sesión.");
+      setIsError("Rellene los campos para Registrarse");
       return;
     }
     setIsLoading(true);
@@ -214,7 +214,7 @@ export default function Login() {
           </Link>
         </div>
 
-        <div className="w-full max-w-md p-6 bg-[#1a1a1a] rounded-lg flex justify-center items-center">
+        {/* <div className="w-full max-w-md p-6 bg-[#1a1a1a] rounded-lg flex justify-center items-center">
           <span>O registrate con</span>
         </div>
         <div
@@ -222,7 +222,7 @@ export default function Login() {
           className="flex justify-center rounded-md items-center px-4 py-3 shadow-lg hover:shadow-2xl hover:bg-[#1f1f1f] cursor-pointer transition-all"
         >
           <GoogleSvg width={38} height={38} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
