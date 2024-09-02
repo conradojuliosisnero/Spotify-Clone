@@ -27,7 +27,7 @@ html {
   align-items: center;
   padding: 1rem 2rem;
   background-color: #000000;
-  backdrop-filter: blur(7px);
+  backdrop-filter: blur(2px);
   z-index: 700;
 
   position: fixed;
@@ -455,7 +455,7 @@ html {
 }
 
 .container-icon {
-  color: #fff;
+  color: #ffffff;
   background-color: #292929;
   border-radius: 50%;
   width: 4.2rem;

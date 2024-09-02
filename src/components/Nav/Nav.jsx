@@ -3,25 +3,11 @@ import "@/styles/styles.css";
 import Link from "next/link";
 import Image from "next/image";
 import menuItems from "@/data/dataMenu";
-import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 export default function Nav() {
   const [width, setWidth] = useState(null);
   const [open, setOpen] = useState(false);
-
-  const { data: session } = useSession();
-
-  async function handleLogout() {
-    try {
-      await signOut({ callbackUrl: "/" });
-      console.log("Logout successful");
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -56,11 +42,6 @@ export default function Nav() {
             </Link>
           </li>
         ))}
-        {session && (
-          <button className="btn-primary" onClick={handleLogout}>
-            Logout
-          </button>
-        )}
       </ul>
       )}
     </>

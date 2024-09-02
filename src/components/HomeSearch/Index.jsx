@@ -6,18 +6,16 @@ import Image from "next/image";
 import defaultImage from "../../../public/img/image.svg";
 import Error from "../Error/Error";
 import BaseSkeletonCard from "../Squeleton/BaseSkeleton";
-import ArtistCard from "../ArtistCard/ArtistCard";
 import LinkComponent from "../UI/Link/Link";
-import Section from "../Section/Section";
 import arroowDown from "../../../public/assets/down-arrow.svg";
 import { motion } from "framer-motion";
 
-export default function Home() {
+export default function HomeSearch({ params }) {
   const [recommendations, setRecommendations] = useState(null);
   const [showMoreResults, setShowMoreResults] = useState(10); // Default value
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeFilter, setActiveFilter] = useState("todo"); // Default filter
+  const [activeFilter, setActiveFilter] = useState(params?.option); // Default filter
 
   useEffect(() => {
     // Load showMoreResults from localStorage only on the client side
@@ -31,7 +29,7 @@ export default function Home() {
     const fetchRecommendations = async () => {
       setLoading(true);
       try {
-        const response = await fetch("/api/home");
+        const response = await fetch(`/api/search?q=${params.option}`);
         const data = await response.json();
         setRecommendations(data);
         setLoading(false);
@@ -59,7 +57,7 @@ export default function Home() {
   }
 
   const filters = [
-    { id: "todo", name: "Todo", path: "/all" },
+    { id: "todo", name: "Todo", path: "/" },
     { id: "musica", name: "Musica", path: "/music" },
     { id: "podcasts", name: "Podcasts", path: "/podcasts" },
   ];
@@ -112,8 +110,8 @@ export default function Home() {
       </div>
       <motion.div variants={container} initial="hidden" animate="visible">
         <Container name="Recomendaciones">
-          {recommendations && recommendations.categories ? (
-            recommendations.categories
+          {recommendations && recommendations.albums ? (
+            recommendations.albums
               .slice(0, showMoreResults)
               .map((category, index) => (
                 <motion.div variants={item}>
@@ -124,14 +122,18 @@ export default function Home() {
                   >
                     <div className="card-img">
                       <Image
-                        src={category.imageUrl || defaultImage}
-                        alt={category.title || "Album cover"}
+                        src={category.coverArt || defaultImage}
+                        alt={category.name || "Album cover"}
                         width={100}
                         height={100}
                         quality={60}
                       />
                     </div>
-                    <h2 className="trunk-text">{category.title}</h2>
+                    <h2 className="trunk-text">{category.name}</h2>
+                    <div className="flex justify-between">
+                      <span>{category.year}</span>
+                      <span>{category.artistName}</span>
+                    </div>
                   </MusicCard>
                 </motion.div>
               ))
@@ -143,14 +145,16 @@ export default function Home() {
         </Container>
       </motion.div>
       <div className="w-full flex justify-center items-center font-bold text-2xl text-white cursor-pointer">
-        <Image
-          src={arroowDown}
-          alt="arrow"
-          width={35}
-          height={35}
-          className="cursor-pointer"
-          onClick={showMore}
-        />
+        {recommendations && recommendations.albums.length > 10 && (
+          <Image
+            src={arroowDown}
+            alt="arrow"
+            width={35}
+            height={35}
+            className="cursor-pointer"
+            onClick={showMore}
+          />
+        )}
       </div>
     </div>
   );
