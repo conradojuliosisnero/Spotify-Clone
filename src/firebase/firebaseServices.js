@@ -28,17 +28,12 @@ export async function singInWithEmailAndPassword(email, password) {
 // Logica de registro
 export async function registerUserWithEmailAndPassword(email, password) {
   try {
-    const response = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    const response = await createUserWithEmailAndPassword(auth,email,password);
     // Enviar correo de verificación
     await sendEmailVerification(auth.currentUser);
     return response;
   } catch (error) {
-    const errorMessage =
-      FIREBASE_ERRORS[error.code] || FIREBASE_ERRORS["default"];
+    const errorMessage = FIREBASE_ERRORS[error.code] || FIREBASE_ERRORS["default"];
     return errorMessage;
   }
 }

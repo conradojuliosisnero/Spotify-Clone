@@ -44,6 +44,7 @@ export default function App() {
       <Avatar
         className="cursor-pointer"
         onClick={handlePopUp}
+        showFallback
         isBordered
         size="lg"
         color="success"

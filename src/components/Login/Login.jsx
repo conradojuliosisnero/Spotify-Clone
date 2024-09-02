@@ -40,9 +40,8 @@ export default function Login() {
   // validate username
   const validateUserName = (username) => {
     if (username !== "") {
-      /* esta expresion regular solo acepta letras y numeros
-      con un maximo de 20 caracteres*/
-      const regex = /^[a-z\sA-Z0-9]{1,20}$/i;
+      /* esta expresion regular valida que sea un correo electronico valido*/
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const isValid = regex.test(username);
       if (!isValid) {
         setValidatedName(false);
@@ -127,7 +126,7 @@ export default function Login() {
               htmlFor="username"
               className="block mb-2 text-sm font-medium text-muted-foreground"
             >
-              Nombre de usuario *
+              Email *
             </label>
             <input
               id="username"
