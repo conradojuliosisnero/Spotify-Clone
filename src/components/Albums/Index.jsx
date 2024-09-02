@@ -65,7 +65,7 @@ export default function Albums (){
         {albums.albums ? (
           albums.albums?.map((album, index) => (
             <motion.div variants={item} key={index}>
-              <MusicCard key={index}>
+              <MusicCard key={index} albumId={album.uri}>
                 <div className="card-img">
                   <Image
                     src={album.coverArt || defaultImage}
