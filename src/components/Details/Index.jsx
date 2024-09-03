@@ -10,8 +10,18 @@ export default function Details({ params }) {
 
   const { albumId } = params;
 
-  console.log(albumData);
+  // funcion  para sanetizar el id de la url
+  function albumIdExtraction(id) {
+    if (id) {
+      const string = id;
+      const parts = string.split(":");
+      return parts[2];
+    }
+    return null;
+  }
+
   useEffect(() => {
+    albumIdExtraction(albumId);
     const fetchData = async () => {
       setLoading(true);
       try {

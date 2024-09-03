@@ -1,5 +1,7 @@
 export default async function getAlbums(albumId, offset = 0, limit = 20) {
+  console.log(albumId);
   const URL = `${process.env.SPOTIFY_BASE_URL}/albums/?ids=${albumId}`;
+  console.log(URL);
   const OPTIONS = {
     method: "GET",
     headers: {

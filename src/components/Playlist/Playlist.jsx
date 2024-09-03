@@ -60,24 +60,30 @@ export default  function Playlist (){
   return (
     <motion.div variants={container} initial="hidden" animate="visible">
       <Container name="Play List">
-        {playList?.albums?.map((artist, index) => (
-          <motion.div key={index} variants={item}>
-            <MusicCard key={index} albumId={artist.uri}>
-              <div className="card-img">
-                <Image
-                  src={artist.coverArt || defaultImage}
-                  alt={"artist cover"}
-                  width={100}
-                  height={100}
-                  quality={60}
-                />
-              </div>
-              <h2 className="trunk-text">{artist.name}</h2>
-              <span className="text-white">{artist.artistName}</span>
-              <span className="text-white">{artist.year}</span>
-            </MusicCard>
-          </motion.div>
-        ))}
+        {playList?.albums ? (
+          playList?.albums?.map((artist, index) => (
+            <motion.div key={index} variants={item}>
+              <MusicCard key={index} albumId={artist.uri}>
+                <div className="card-img">
+                  <Image
+                    src={artist.coverArt || defaultImage}
+                    alt={"artist cover"}
+                    width={100}
+                    height={100}
+                    quality={60}
+                  />
+                </div>
+                <h2 className="trunk-text">{artist.name}</h2>
+                <span className="text-white">{artist.artistName}</span>
+                <span className="text-white">{artist.year}</span>
+              </MusicCard>
+            </motion.div>
+          ))
+        ) : (
+          <div className="text-7xl font-bold w-full justify-center items-center">
+            Playlist not found :(
+          </div>
+        )}
       </Container>
     </motion.div>
   );
