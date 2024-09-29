@@ -93,10 +93,10 @@ export default function Search() {
                     className="absolute -bottom-2 -right-10 w-[120px] h-[120px] rounded-lg object-cover transform rotate-[25deg] shadow-xl"
                   />
                   <div className="relative z-10 p-4 flex flex-col justify-between h-full">
-                    <p className="text-4xl font-bold text-white leading-tight hover:underline">
-                      <Link href={`/albums/${category.name}`}>
+                    <p className="text-4xl font-bold text-white leading-tight">
+                      <span>
                         {category.title}
-                      </Link>
+                      </span>
                     </p>
                   </div>
                 </RecomendedCard>
