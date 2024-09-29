@@ -38,13 +38,37 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "mosaic.scdn.co",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "seed-mix-image.spotifycdn.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "thisis-images.spotifycdn.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "pickasso.spotifycdn.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
   async redirects() {
     return [
       {
-        source: "/", 
-        destination: "/home", 
+        source: "/",
+        destination: "/home",
         permanent: false,
       },
     ];
