@@ -63,33 +63,36 @@ export default function Artist() {
   return (
     <motion.div initial="hidden" animate="visible" variants={container}>
       <Container name="Artist">
-        {artists?.albums?.map((artist, index) => (
-          <motion.div key={index} variants={item}>
-            <ArtistCard key={index} albumId={artist.uri}>
-              <div>
-                <Image
-                  src={artist.coverArt || defaultImage}
-                  alt={"artist cover"}
-                  width={160}
-                  height={160}
-                  quality={60}
-                  className="rounded-full"
-                />
-              </div>
-              <div className="flex flex-col items-start w-full">
-                <h2 className="trunk-text font-bold text-2xl">
-                  <Link
-                    href={`/artist/${artist.uri}`}
-                    className="text-white hover:underline"
-                  >
-                    {artist.artistName}
-                  </Link>
-                </h2>
-                <span className="text-white">Artist</span>
-              </div>
-            </ArtistCard>
-          </motion.div>
-        ))}
+        {artists?.albums ? (
+          artists?.albums?.map((artist, index) => (
+            <motion.div key={index} variants={item}>
+              <ArtistCard key={index} albumId={artist.uri}>
+                <div>
+                  <Image
+                    src={artist.coverArt || defaultImage}
+                    alt={"artist cover"}
+                    width={160}
+                    height={160}
+                    quality={60}
+                    className="rounded-full"
+                  />
+                </div>
+                <div className="flex flex-col items-start w-full">
+                  <h2 className="trunk-text font-bold text-2xl">
+                    <span className="text-white">
+                      {artist.artistName}
+                    </span>
+                  </h2>
+                  <span className="text-white">Artist</span>
+                </div>
+              </ArtistCard>
+            </motion.div>
+          ))
+        ) : (
+          <div className="text-7xl font-bold w-full justify-center items-center">
+            Artist not found :(
+          </div>
+        )}
       </Container>
     </motion.div>
   );

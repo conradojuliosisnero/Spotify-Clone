@@ -9,7 +9,7 @@ export const countSongs = (songs) => {
 };
 
 // calcular tiempo de duracion del album
-function calculateAlbumDuration(songDurations) {
+export function calculateAlbumDuration(songDurations) {
   // Sumar las duraciones
   let totalDurationMs = songDurations.reduce(
     (total, duration) => total + duration,
@@ -22,4 +22,12 @@ function calculateAlbumDuration(songDurations) {
   let seconds = totalSeconds % 60;
 
   return { minutes, seconds };
+}
+
+export function formatDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
 }

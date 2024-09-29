@@ -3,7 +3,10 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import ButtonPlay from "../MusiCard/ButtonPlay";
 
-export default function ArtistCard({ children , albumId }) {
+export default function ArtistCard({ children, albumId }) {
+  
+  console.log(albumId);
+
   const [buttonHover, setButtonHover] = useState(false);
   const [sanitAlbumId, setSanitAlbumId] = useState("");
 

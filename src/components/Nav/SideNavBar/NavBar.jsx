@@ -19,8 +19,9 @@ export default function NavBar() {
     <nav className="navbar">
       <div className="w-full flex justify-between items-center px-3 pt-2">
         <Image src={spotify} alt="spotify" width={35} height={35} />
-        <div className="bg-gray-600 hover:bg-gray-500 transition-background rounded-full p-2 cursor-pointer">
+        <div className="bg-white/10 hover:bg-white/20 transition-background rounded-full p-2 cursor-pointer">
           <Image
+            className="p-2"
             src={home}
             alt="spotify"
             width={35}
