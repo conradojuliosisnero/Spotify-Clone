@@ -1,7 +1,8 @@
 "use client";
+import ArtistsDetails from "@/components/ArtistDetails/ArtistsDetails";
 import { useParams } from "next/navigation";
 
 export default function page() {
   const params = useParams();
-  return <div>page</div>;
+  return <ArtistsDetails params={params} />;
 }

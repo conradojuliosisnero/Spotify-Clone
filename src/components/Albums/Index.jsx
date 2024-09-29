@@ -9,7 +9,7 @@ import BaseSkeletonCard from "@/components/Squeleton/BaseSkeleton";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-export default function Albums (){
+export default function Albums() {
   const [albums, setAlbums] = useState([]);
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
@@ -18,7 +18,7 @@ export default function Albums (){
     const fetchAlbums = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("/api/search?q=album");     
+        const response = await fetch("/api/search?q=album");
         const data = await response.json();
         setAlbums(data);
         setIsLoading(false);
@@ -76,7 +76,7 @@ export default function Albums (){
                   />
                 </div>
                 <h2 className="trunk-text hover:underline">
-                  <Link href={`/album/${album.uri}`}>{album.name}</Link>
+                  <Link href={`/albums/${album.uri}`}>{album.name}</Link>
                 </h2>
                 <span>{album.year}</span>
               </MusicCard>
@@ -84,12 +84,10 @@ export default function Albums (){
           ))
         ) : (
           <div className="text-7xl font-bold w-full justify-center items-center">
-            No recommendations found :(
+            Albums not found :(
           </div>
         )}
       </Container>
     </motion.div>
   );
-};
-
-
+}
