@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 import getArtist from "@/services/artist";
 
-export async function GET(request) {
-  const url = new URL(request.url);
-  const query = url.searchParams.get("id");
+export async function GET(req,{ params }) {
+  const query = params.id;
   try {
     const response = await getArtist(query);
     return NextResponse.json(response, { status: 200 });

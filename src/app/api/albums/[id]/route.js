@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import getAlbums from "@/services/albums";
 
-export async function GET({params}) {  
-  const query = params.id
+export async function GET(req,{ params }) {
+  const query = params.id;
   try {
     const response = await getAlbums(query);
     return NextResponse.json(response, { status: 200 });

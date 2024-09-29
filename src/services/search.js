@@ -5,8 +5,7 @@ export default async function getSearchTracks(query, offset = 0, limit = 20) {
     headers: {
       "x-rapidapi-key": `${process.env.SPOTIFY_API_KEY}`,
       "x-rapidapi-host": "spotify23.p.rapidapi.com",
-    },
-    cache: "no-store",
+    }
   };
 
   try {
@@ -15,6 +14,7 @@ export default async function getSearchTracks(query, offset = 0, limit = 20) {
       throw new Error("Failed to fetch tracks");
     }
     const data = await response.json();
+    console.log(data);
     const simplifiedData = {
       albums: [],
       artists: [],
@@ -89,6 +89,7 @@ export default async function getSearchTracks(query, offset = 0, limit = 20) {
         publisher: podcast.data.publisher.name,
       });
     });
+
     console.log(simplifiedData);
     return simplifiedData;
   } catch (error) {

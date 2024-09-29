@@ -1,7 +1,5 @@
-export default async function getAlbums(albumId, offset = 0, limit = 20) {
-  console.log(albumId);
+export default async function getAlbums(albumId) {
   const URL = `${process.env.SPOTIFY_BASE_URL}/albums/?ids=${albumId}`;
-  console.log(URL);
   const OPTIONS = {
     method: "GET",
     headers: {
@@ -12,13 +10,44 @@ export default async function getAlbums(albumId, offset = 0, limit = 20) {
 
   try {
     const response = await fetch(URL, OPTIONS);
-    if (!response.ok) {
+    if (response.status !== 200) {
       throw new Error("Failed to fetch albums");
     }
     const data = await response.json();
-    console.log(data);
-    return data;
+    // Inicializar objeto simplificado
+    let simplifiedData = {};
+
+    data.albums.forEach((album) => {
+      simplifiedData = {
+        id: album.id,
+        name: album.name,
+        releaseDate: album.release_date,
+        externalUrl: album.external_urls.spotify,
+        duration: album.tracks.items.map((tracks) => ({
+          time: tracks.duration_ms,
+        })),
+        images: album.images.map((image) => ({
+          url: image.url,
+          width: image.width,
+          height: image.height,
+        })),
+        artists: album.artists.map((artist) => ({
+          id: artist.id,
+          name: artist.name,
+          externalUrl: artist.external_urls.spotify,
+        })),
+        tracks: album.tracks.items.map((track) => ({
+          id: track.id,
+          name: track.name,
+          durationMs: track.duration_ms,
+          externalUrl: track.external_urls.spotify,
+        })),
+      };
+    });
+
+    return simplifiedData;
   } catch (error) {
-    return error;
+    console.error("Error fetching albums:", error);
+    return { error: error.message };
   }
 }

@@ -79,12 +79,9 @@ export default function Artist() {
                 </div>
                 <div className="flex flex-col items-start w-full">
                   <h2 className="trunk-text font-bold text-2xl">
-                    <Link
-                      href={`/artist/${artist.uri}`}
-                      className="text-white hover:underline"
-                    >
+                    <span className="text-white">
                       {artist.artistName}
-                    </Link>
+                    </span>
                   </h2>
                   <span className="text-white">Artist</span>
                 </div>

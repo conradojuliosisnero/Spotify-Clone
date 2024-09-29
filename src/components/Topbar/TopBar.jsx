@@ -32,12 +32,14 @@ export default function TopBar() {
   }, []);
 
   return (
-    <div className={`topbar`}>
+    <div className="topbar">
       {/* flechas  */}
       {/* <Arrow /> */}
-      <Search />
+      <div className="flex justify-start w-full">
+        <Search />
+      </div>
       {/* Avatar */}
-      <AvatarUser />
+      {/* <AvatarUser /> */}
     </div>
   );
 }

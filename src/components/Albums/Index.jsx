@@ -9,7 +9,7 @@ import BaseSkeletonCard from "@/components/Squeleton/BaseSkeleton";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-export default function Albums (){
+export default function Albums() {
   const [albums, setAlbums] = useState([]);
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
@@ -18,7 +18,7 @@ export default function Albums (){
     const fetchAlbums = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("/api/search?q=album");     
+        const response = await fetch("/api/search?q=album");
         const data = await response.json();
         setAlbums(data);
         setIsLoading(false);
@@ -90,6 +90,4 @@ export default function Albums (){
       </Container>
     </motion.div>
   );
-};
-
-
+}

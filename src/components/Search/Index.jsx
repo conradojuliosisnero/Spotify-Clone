@@ -7,10 +7,12 @@ import { useEffect, useState } from "react";
 import RecomendedCard from "@/components/UI/RecomendedCard/Card";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import ArtistCard from "../ArtistCard/ArtistCard";
+import defaultImage from "../../../public/img/image.svg";
 
 export default function Search() {
   const [recomended, setRecomended] = useState(null);
-  const music = useSelector((state) => state.search.results);
+  const results = useSelector((state) => state.search.results);
 
   useEffect(() => {
     const searchRecomended = async () => {
@@ -46,15 +48,12 @@ export default function Search() {
     },
   };
 
-  console.log(music);
-  console.log(recomended);
-
   return (
     <motion.div initial="hidden" animate="visible" variants={container}>
       <Container name="Busqueda">
         {/* Mostrar resultados de búsqueda si existen */}
-        {music?.albums?.length > 0
-          ? music.albums.map(({ name, coverArt, year, uri }, index) => (
+        {results?.albums?.length > 0
+          ? results.albums.map(({ name, coverArt, year, uri }, index) => (
               <motion.div key={index} variants={item}>
                 <MusicCard key={index} albumId={uri}>
                   <div className="card-img">
@@ -65,7 +64,11 @@ export default function Search() {
                       height={100}
                     />
                   </div>
-                  <h2 className="trunk-text">{name}</h2>
+                  <h2 className="trunk-text">
+                    <Link href={`/albums/${uri}`} className="hover:underline">
+                      {name}
+                    </Link>
+                  </h2>
                   <div>
                     <p>{name}</p>
                     <p>{year}</p>
@@ -84,10 +87,10 @@ export default function Search() {
                   <Image
                     src={category.imageUrl || ""}
                     width={100}
-                    quality={70}
+                    quality={50}
                     height={100}
                     alt="cover-art"
-                    className="absolute -bottom-2 -right-24 w-[170px] h-[170px] object-cover transform rotate-[25deg] shadow-xl"
+                    className="absolute -bottom-2 -right-10 w-[120px] h-[120px] rounded-lg object-cover transform rotate-[25deg] shadow-xl"
                   />
                   <div className="relative z-10 p-4 flex flex-col justify-between h-full">
                     <p className="text-4xl font-bold text-white leading-tight hover:underline">
@@ -99,7 +102,59 @@ export default function Search() {
                 </RecomendedCard>
               </motion.div>
             ))}
+        {/* ARTISTS  */}
       </Container>
+      {results.artists?.length > 0 && (
+        <Container name="Busqueda de Artistas">
+          {results?.artists?.map((artist, index) => (
+            <motion.div key={index} variants={item}>
+              <ArtistCard key={index} albumId={artist.uri}>
+                <div>
+                  <Image
+                    src={artist.avatar || defaultImage}
+                    alt={"artist cover"}
+                    width={160}
+                    height={160}
+                    quality={60}
+                    className="rounded-full"
+                  />
+                </div>
+                <div className="flex flex-col items-start w-full">
+                  <h2 className="trunk-text font-bold text-2xl">
+                    <span className="text-white">{artist.name}</span>
+                  </h2>
+                </div>
+              </ArtistCard>
+            </motion.div>
+          ))}
+        </Container>
+      )}
+      {/* PLAYLIST  */}
+      {results.playlists?.length > 0 && (
+        <Container name="Busqueda de PlayList">
+          {results?.playlists?.map((playlist, index) => (
+            <motion.div key={index} variants={item}>
+              <MusicCard key={index} albumId={playlist?.uri}>
+                <div className="card-img">
+                  <Image
+                    src={playlist?.image || defaultImage}
+                    alt="album cover"
+                    width={100}
+                    height={100}
+                  />
+                </div>
+                <h2 className="trunk-text">
+                  <span>{playlist?.name}</span>
+                </h2>
+                <div>
+                  <p>{playlist?.name}</p>
+                  <p>{playlist?.owner}</p>
+                </div>
+              </MusicCard>
+            </motion.div>
+          ))}
+        </Container>
+      )}
     </motion.div>
   );
 }
